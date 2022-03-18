@@ -1,11 +1,17 @@
 # Framework-Divide-Conquer
-Framework template for divide and conquer algorithms
-## What is a Framework?
-A framework is a collection of algorithms that are designed to solve a common problem.
-## What is a Divide and Conquer?
-Divide and Conquer is a technique where a problem is broken down into smaller sub-problems and then solved by recursively solving the sub-problems.
+    Framework template for divide and conquer algorithms
+## Introduction
+### What is divide and conquer?
+    Divide and conquer is a technique for solving problems by breaking them into subproblems and then solving each of those subproblems recursively.
+### Why is it important?
+    Divide and conquer algorithms are often used in computer science to solve problems that are too difficult to solve directly.
+### How does it work?
+    The divide and conquer algorithm is a recursive algorithm that divides the problem into subproblems and then solves each of those subproblems recursively.
+### How does it differ from other algorithms?
+    The divide and conquer algorithm is often used in computer science to solve problems that are too difficult to solve directly.
+## Use
 ## References
-- [Wikipedia](https://en.wikipedia.org/wiki/Framework_(programming))
-- [Wikipedia](https://en.wikipedia.org/wiki/Divide_and_conquer)
+- [Framework](https://en.wikipedia.org/wiki/Framework_(programming))
+- [Divide_and_conquer](https://en.wikipedia.org/wiki/Divide_and_conquer)
 ## License
-[MIT]
+This project is licensed under the MIT license.
