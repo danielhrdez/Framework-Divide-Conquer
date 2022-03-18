@@ -1,0 +1,1 @@
+csc "src\DivideConquerMain.cs" "src\RandomGenerators\RandomArray.cs" "src\DivideConquer\DivideConquerTemplate.cs" "src\DivideConquer\DivideConquerSolver.cs" "src\DivideConquer\Algorithms\QuickSort.cs" "src\DivideConquer\Algorithms\MergeSort.cs"
