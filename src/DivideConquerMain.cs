@@ -4,9 +4,11 @@ using QuickSort = DivideConquer.Algorithms.QuickSort<int>;
 using RandomArray = RandomGenerators.RandomArray;
 using System;
 using System.Diagnostics;
+using System.IO;
 
 class DivideConquerMain {
-  const int MAX_SIZE = 5;
+  const int NUMBER_ARRAYS = 20;
+  const int MIN_SIZE = 1;
 
   /// <summary>
   ///   Instanciate the algorithms
@@ -31,6 +33,7 @@ class DivideConquerMain {
     for (int i = 0; i < algorithms.Length; i++) {
       timeResults[i] = new object[arrays.Length][];
       for (int j = 0; j < arrays.Length; j++) {
+        sw.Reset();
         sw.Start();
         algorithms[i].Solve(arrays[j]);
         sw.Stop();
@@ -68,7 +71,7 @@ class DivideConquerMain {
   int[][] GenerateArrays(int maxSize, int maxValue) {
     int[][] arrays = new int[maxSize][];
     RandomArray generator = new RandomArray();
-    for (int size = 1, i = 0; i < maxSize; size *= 2, i++) {
+    for (int size = MIN_SIZE, i = 0; i < maxSize; size *= 2, i++) {
       arrays[i] = generator.Create(size, (int seed) => {
         return new Random(seed).Next(maxValue);
       });
@@ -76,16 +79,37 @@ class DivideConquerMain {
     return arrays;
   }
 
+  void WriteCSV(object[][][] timeResults, string fileName) {
+    using (StreamWriter writer = new StreamWriter(fileName + ".csv")) {
+      for (int i = 0; i < timeResults.Length; i++) {
+        writer.Write("{0}: Milliseconds,", timeResults[i][0][0]);
+      }
+      writer.WriteLine("Size");
+      for (int j = 0; j < timeResults[0].Length; j++) {
+        for (int i = 0; i < timeResults.Length; i++) {
+          writer.Write("{0}", timeResults[i][j][1]);
+          if (i < timeResults.Length - 1) {
+            writer.Write(",");
+          }
+        }
+        writer.WriteLine("," + timeResults[0][j][2]);
+      }
+    }
+  }
+
   /// <summary>
   ///   Main method.
   ///   Generate random arrays, 
   ///   benchmark the algorithms and print the results.
   /// </summary>
-  static void Main() {
+  /// <param name="args">The arguments.</param>
+  static void Main(string[] args) {
     DivideConquerMain main = new DivideConquerMain();
-    int[][] arrays = main.GenerateArrays(MAX_SIZE, int.MaxValue);
+    int[][] arrays = main.GenerateArrays(NUMBER_ARRAYS, int.MaxValue);
     Solver[] algorithms = main.CreateAlgorithms();
     object[][][] timeResults = main.TimeSorts(algorithms, arrays);
-    main.PrintResults(timeResults);
+    if (args.Length > 1 && args[0] == "-o") {
+      main.WriteCSV(timeResults, args[1]);
+    } else main.PrintResults(timeResults);
   }
 }
