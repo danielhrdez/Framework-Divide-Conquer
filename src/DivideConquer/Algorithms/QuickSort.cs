@@ -27,11 +27,10 @@ namespace DivideConquer.Algorithms {
     /// <param name="array">The array to divide.</param>
     /// <returns>The two subarrays.</returns>
     public override Type[][] Divide(Type[] array) {
-      Type pivot = array[array.Length >> 1];
       List<Type> left = new List<Type>();
       List<Type> right = new List<Type>();
-      for (int i = 0; i < array.Length; i++) {
-        if (array[i].CompareTo(pivot) < 0) {
+      for (int i = 1; i < array.Length; i++) {
+        if (array[i].CompareTo(array[0]) < 0) {
           left.Add(array[i]);
         } else {
           right.Add(array[i]);
