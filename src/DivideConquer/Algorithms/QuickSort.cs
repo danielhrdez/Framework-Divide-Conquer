@@ -1,13 +1,14 @@
-using DivideConquerTemplate = DivideConquer.DivideConquerTemplate;
+using System;
+using System.Collections.Generic;
 
 namespace DivideConquer.Algorithms {
-  class QuickSort<Array> : DivideConquerTemplate<Array, Array> {
+  class QuickSort<Type> : Template<Type[], Type[]> where Type : IComparable {
     /// <summary>
     ///   Check if the length of the array is less than 2.
     /// </summary>
     /// <param name="array">The array to check.</param>
     /// <returns>True if the length of the array is less than 2.</returns>
-    public bool Small(Array array) {
+    public override bool Small(Type[] array) {
       return array.Length < 2;
     }
 
@@ -16,8 +17,8 @@ namespace DivideConquer.Algorithms {
     /// </summary>
     /// <param name="array">The array to return.</param>
     /// <returns>The array.</returns>
-    public Array SolveSmall(Array array) {
-      return new Array(array);
+    public override Type[] SolveSmall(Type[] array) {
+      return array;
     }
 
     /// <summary>
@@ -25,18 +26,18 @@ namespace DivideConquer.Algorithms {
     /// </summary>
     /// <param name="array">The array to divide.</param>
     /// <returns>The two subarrays.</returns>
-    public Array[] Divide(Array array) {
-      const int pivot = array[array.Length >> 1];
-      Array left = new Array();
-      ProbArraylem right = new Array();
+    public override Type[][] Divide(Type[] array) {
+      Type pivot = array[array.Length >> 1];
+      List<Type> left = new List<Type>();
+      List<Type> right = new List<Type>();
       for (int i = 0; i < array.Length; i++) {
-        if (array[i] < pivot) {
+        if (array[i].CompareTo(pivot) < 0) {
           left.Add(array[i]);
         } else {
           right.Add(array[i]);
         }
       }
-      return new Array[] { left, right };
+      return new Type[2][] { left.ToArray(), right.ToArray() };
     }
 
     /// <summary>
@@ -45,10 +46,13 @@ namespace DivideConquer.Algorithms {
     /// <param name="left">The left subarray.</param>
     /// <param name="right">The right subarray.</param>
     /// <returns>The merged subarray.</returns>
-    public Array Combine(Array[] subarrays) {
-      Array left = subarrays[0];
-      Array right = subarrays[1];
-      return new Array(left.Concat(right));
+    public override Type[] Combine(Type[][] subarrays) {
+      List<Type> left = new List<Type>(subarrays[0]);
+      List<Type> right = new List<Type>(subarrays[1]);
+      List<Type> combined = new List<Type>();
+      combined.AddRange(left);
+      combined.AddRange(right);
+      return combined.ToArray();
     }
   }
 }

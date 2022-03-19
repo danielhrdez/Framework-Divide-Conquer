@@ -1,39 +1,60 @@
-using DivideConquerSolver = DivideConquer.DivideConquerSolver<int[], int[]>;
-using MergeSort = DivideConquer.Algorithms.MergeSort<int[]>;
-using QuickSort = DivideConquer.Algorithms.QuickSort<int[]>;
+using Solver = DivideConquer.Solver<int[], int[]>;
+using MergeSort = DivideConquer.Algorithms.MergeSort<int>;
+using QuickSort = DivideConquer.Algorithms.QuickSort<int>;
 using RandomArray = RandomGenerators.RandomArray;
 using System;
+using System.Diagnostics;
 
 class DivideConquerMain {
-  const int SIZE = 100;
+  const int MAX_SIZE = 100;
 
-  DivideConquerSolver[] CreateAlgorithms() {
-    DivideConquerSolver mergeSort = new DivideConquerSolver(new MergeSort());
-    DivideConquerSolver quickSort = new DivideConquerSolver(new QuickSort());
-    return new DivideConquerSolver[] { mergeSort, quickSort };
+  Solver[] CreateAlgorithms() {
+    Solver mergeSort = new Solver(new MergeSort());
+    Solver quickSort = new Solver(new QuickSort());
+    return new Solver[] { mergeSort, quickSort };
   }
 
-  int[][] Sort(DivideConquerSolver[] algorithms, int [] array) {
-    int[][] results = new int[algorithms.Length][];
+  long[][][] SortArrays(Solver[] algorithms, int [][] arrays) {
+    long[][][] timeResults = new long[algorithms.Length][][];
+    Stopwatch sw = new Stopwatch();
     for (int i = 0; i < algorithms.Length; i++) {
-      results[i] = algorithms[i].Solve(array);
+      timeResults[i] = new long[arrays.Length][];
+      for (int j = 0; j < arrays.Length; j++) {
+        sw.Start();
+        algorithms[i].Solve(arrays[j], arrays[j].Length);
+        sw.Stop();
+        timeResults[i][j] = 
+            new long[2] {sw.ElapsedMilliseconds, arrays[j].Length};
+      }
     }
-    return results;
+    return timeResults;
   }
 
-  void PrintResults(int[][] results) {
-    for (int i = 0; i < results.Length; i++) {
-      Console.WriteLine("Algorithm " + i + ":");
-      Console.WriteLine(string.Join(", ", results[i]));
+  void PrintResults(long[][][] timeResults) {
+    for (int i = 0; i < timeResults.Length; i++) {
+      Console.WriteLine("Algorithm {0}", i);
+      for (int j = 0; j < timeResults[i].Length; j++) {
+        Console.WriteLine("  Time: {0}", timeResults[i][j][0]);
+        Console.WriteLine("  Size: {0}", timeResults[i][j][1]);
+      }
     }
+  }
+
+  int[][] GenerateArrays(int maxSize, int maxValue) {
+    int[][] arrays = new int[maxSize][];
+    RandomArray generator = new RandomArray();
+    for (int size = 1; size < maxSize; size++) {
+      arrays[size] = generator.Create(size, () => {
+        return new Random().Next(maxValue);
+      });
+    }
+    return arrays;
   }
 
   void Main() {
-    int[] array = RandomArray.Create(SIZE, () => new Random().Next(int.MaxValue));
-    Console.WriteLine("Array:");
-    Console.WriteLine(string.Join(", ", array));
-    DivideConquerSolver[] algorithms = CreateAlgorithms();
-    int[][] results = Sort(algorithms, array);
-    printResults(results);
+    int[][] arrays = GenerateArrays(MAX_SIZE, int.MaxValue);
+    Solver[] algorithms = CreateAlgorithms();
+    long[][][] timeResults = SortArrays(algorithms, arrays);
+    PrintResults(timeResults);
   }
 }

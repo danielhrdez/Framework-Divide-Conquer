@@ -1,5 +1,5 @@
 namespace DivideConquer {
-  abstract class DivideConquerTemplate<Problem, Solution> {
+  abstract class Template<Problem, Solution> {
     /// <summary>
     /// Determines if a problem is solvable.
     /// </summary>
