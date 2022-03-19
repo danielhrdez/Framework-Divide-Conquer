@@ -27,5 +27,23 @@ namespace DivideConquer {
     /// <param name="solutions">The solutions to combine.</param>
     /// <returns>The combined solution.</returns>
     public abstract Solution Combine(Solution[] solutions);
+
+    /// <summary>
+    /// Return The number of subproblems each time is divided.
+    /// </summary>
+    /// <returns>The number of subproblems each time is divided.</returns>
+    public abstract string Subproblems();
+
+    /// <summary>
+    /// Return the size of each subproblem.
+    /// </summary>
+    /// <returns>The size of each subproblem.</returns>
+    public abstract string SizeSubproblems();
+
+    /// <summary>
+    /// Return the complexity of the divide and combine step.
+    /// </summary>
+    /// <returns>The complexity of the divide and combine step.</returns>
+    public abstract string AdditionalComplexity();
   }
 }

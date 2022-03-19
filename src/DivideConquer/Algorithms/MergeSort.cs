@@ -72,5 +72,29 @@ namespace DivideConquer.Algorithms {
       }
       return combined.ToArray();
     }
+
+    /// <summary>
+    /// Return the number of subproblems each time is divided.
+    /// </summary>
+    /// <returns>The number of subproblems each time is divided.</returns>
+    public override string Subproblems() {
+      return "2";
+    }
+
+    /// <summary>
+    /// Return the size of each subproblem.
+    /// </summary>
+    /// <returns>The size of each subproblem.</returns>
+    public override string SizeSubproblems() {
+      return "n / 2";
+    }
+
+    /// <summary>
+    /// Return the complexity of the divide and combine step.
+    /// </summary>
+    /// <returns>The complexity of the divide and combine step.</returns>
+    public override string AdditionalComplexity() {
+      return "O(n)";
+    }
   }
 }

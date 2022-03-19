@@ -10,6 +10,9 @@
 ### How does it differ from other algorithms?
     The divide and conquer algorithm is often used in computer science to solve problems that are too difficult to solve directly.
 ## Use
+    ./DivideConquer.bat -o <output_file>
+## Tests
+![MergeQuickSort-Comparison](MergeQuickSort.png "MergeQuickSort-Comparison")
 ## References
 - [Framework](https://en.wikipedia.org/wiki/Framework_(programming))
 - [Divide_and_conquer](https://en.wikipedia.org/wiki/Divide_and_conquer)
