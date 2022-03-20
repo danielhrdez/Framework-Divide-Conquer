@@ -31,4 +31,4 @@ def plot(
 if __name__ == '__main__':
   merge_sort, quick_sort, sizes = read_data(sys.argv[1])
   plot(merge_sort, quick_sort, sizes)
-  plt.savefig(sys.argv[1].split('.')[1].split('\\')[-1] + '.png')
+  plt.savefig(sys.argv[1].split('.')[0] + '.png')

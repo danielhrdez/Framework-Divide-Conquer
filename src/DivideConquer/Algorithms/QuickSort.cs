@@ -29,14 +29,15 @@ namespace DivideConquer.Algorithms {
     public override Type[][] Divide(Type[] array) {
       List<Type> left = new List<Type>();
       List<Type> right = new List<Type>();
+      Type pivot = array[0];
       for (int i = 1; i < array.Length; i++) {
-        if (array[i].CompareTo(array[0]) < 0) {
+        if (array[i].CompareTo(pivot) < 0) {
           left.Add(array[i]);
         } else {
           right.Add(array[i]);
         }
       }
-      return new Type[2][] { left.ToArray(), right.ToArray() };
+      return new Type[3][] { left.ToArray(), new Type[1] { pivot }, right.ToArray() };
     }
 
     /// <summary>
@@ -46,11 +47,10 @@ namespace DivideConquer.Algorithms {
     /// <param name="right">The right subarray.</param>
     /// <returns>The merged subarray.</returns>
     public override Type[] Combine(Type[][] subarrays) {
-      List<Type> left = new List<Type>(subarrays[0]);
-      List<Type> right = new List<Type>(subarrays[1]);
       List<Type> combined = new List<Type>();
-      combined.AddRange(left);
-      combined.AddRange(right);
+      combined.AddRange(subarrays[0]);
+      combined.Add(subarrays[1][0]);
+      combined.AddRange(subarrays[2]);
       return combined.ToArray();
     }
 

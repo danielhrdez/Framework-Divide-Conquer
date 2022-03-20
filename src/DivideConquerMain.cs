@@ -7,7 +7,7 @@ using System.Diagnostics;
 using System.IO;
 
 class DivideConquerMain {
-  const int NUMBER_ARRAYS = 20;
+  const int NUMBER_ARRAYS = 19;
   const int MIN_SIZE = 1;
 
   /// <summary>
@@ -105,7 +105,8 @@ class DivideConquerMain {
   /// <param name="args">The arguments.</param>
   static void Main(string[] args) {
     DivideConquerMain main = new DivideConquerMain();
-    int[][] arrays = main.GenerateArrays(NUMBER_ARRAYS, int.MaxValue);
+    // int[][] arrays = main.GenerateArrays(NUMBER_ARRAYS, int.MaxValue);
+    int[][] arrays = main.GenerateArrays(NUMBER_ARRAYS, 100);
     Solver[] algorithms = main.CreateAlgorithms();
     object[][][] timeResults = main.TimeSorts(algorithms, arrays);
     if (args.Length > 1 && args[0] == "-o") {
