@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+// using System.Linq;
 
 namespace DivideConquer.Algorithms {
   class QuickSort<Type> : Template<Type[], Type[]> where Type : IComparable {
@@ -39,6 +40,37 @@ namespace DivideConquer.Algorithms {
       }
       return new Type[3][] { left.ToArray(), new Type[1] { pivot }, right.ToArray() };
     }
+    
+    // public override Type[][] Divide(Type[] array) {
+    //   Console.WriteLine("Divide");
+    //   int middle = array.Length >> 1;
+    //   int end = array.Length - 1;
+    //   Type pivot = array[middle];
+    //   int left = 0;
+    //   int right = end - 1;
+    //   array = this.Swap(array, middle, end);
+    //   while (left < right) {
+    //     while (left < right && array[left].CompareTo(pivot) < 0) left++;
+    //     while (left < right && array[right].CompareTo(pivot) > 0) right--;
+    //     array = this.Swap(array, left, end);
+    //   }
+    //   array = this.Swap(array, left, end);
+    //   Type[] leftArray = array.Take(left).ToArray();
+    //   Type[] rightArray = array.Skip(left).ToArray();
+    //   Console.WriteLine("Left: " + leftArray.Length);
+    //   Console.WriteLine("Right: " + rightArray.Length);
+    //   return new Type[2][] {
+    //     array.Take(left).ToArray(),
+    //     array.Skip(left).ToArray()
+    //   };
+    // }
+
+    // private Type[] Swap(Type[] array, int left, int right) {
+    //   Type temp = array[left];
+    //   array[left] = array[right];
+    //   array[right] = temp;
+    //   return array;
+    // }
 
     /// <summary>
     ///   Merge the two subarrays.
@@ -49,8 +81,7 @@ namespace DivideConquer.Algorithms {
     public override Type[] Combine(Type[][] subarrays) {
       List<Type> combined = new List<Type>();
       combined.AddRange(subarrays[0]);
-      combined.Add(subarrays[1][0]);
-      combined.AddRange(subarrays[2]);
+      combined.AddRange(subarrays[1]);
       return combined.ToArray();
     }
 

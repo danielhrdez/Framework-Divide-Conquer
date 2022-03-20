@@ -7,7 +7,7 @@ using System.Diagnostics;
 using System.IO;
 
 class DivideConquerMain {
-  const int NUMBER_ARRAYS = 19;
+  const int NUMBER_ARRAYS = 17;
   const int MIN_SIZE = 1;
 
   /// <summary>
