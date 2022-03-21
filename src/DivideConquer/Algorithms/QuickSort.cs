@@ -10,7 +10,7 @@ namespace DivideConquer.Algorithms {
     /// <param name="array">The array to check.</param>
     /// <returns>True if the length of the array is less than 2.</returns>
     public override bool Small(Type[] array) {
-      return array.Length < 3;
+      return array.Length < 2;
     }
 
     /// <summary>
@@ -19,11 +19,11 @@ namespace DivideConquer.Algorithms {
     /// <param name="array">The array to return.</param>
     /// <returns>The array.</returns>
     public override Type[] SolveSmall(Type[] array) {
-      if (array.Length == 1) return array;
-      if (array[0].CompareTo(array[1]) <= 0) {
-        return new Type[2] { array[0], array[1] };
-      }
-      return new Type[2] { array[1], array[0] };
+      // if (array.Length <= 1) return array;
+      // if (array[0].CompareTo(array[1]) <= 0) {
+      //   return new Type[2] { array[0], array[1] };
+      // }
+      // return new Type[2] { array[1], array[0] };
       return array;
     }
 
@@ -32,50 +32,45 @@ namespace DivideConquer.Algorithms {
     /// </summary>
     /// <param name="array">The array to divide.</param>
     /// <returns>The two subarrays.</returns>
-    // public override Type[][] Divide(Type[] array) {
-    //   List<Type> left = new List<Type>();
-    //   List<Type> right = new List<Type>();
-    //   Type pivot = array[0];
-    //   for (int i = 1; i < array.Length; i++) {
-    //     if (array[i].CompareTo(pivot) < 0) {
-    //       left.Add(array[i]);
-    //     } else {
-    //       right.Add(array[i]);
-    //     }
-    //   }
-    //   return new Type[3][] { left.ToArray(), new Type[1] { pivot }, right.ToArray() };
-    // }
-    
     public override Type[][] Divide(Type[] array) {
-      Console.WriteLine("Divide");
-      int middle = array.Length >> 1;
-      int end = array.Length - 1;
-      Type pivot = array[middle];
-      int left = 0;
-      int right = end - 1;
-      array = this.Swap(array, middle, end);
-      while (left < right) {
-        while (left < right && array[left].CompareTo(pivot) < 0) left++;
-        while (left < right && array[right].CompareTo(pivot) > 0) right--;
-        array = this.Swap(array, left, end);
+      List<Type> left = new List<Type>();
+      List<Type> right = new List<Type>();
+      Type pivot = array[0];
+      for (int i = 1; i < array.Length; i++) {
+        if (array[i].CompareTo(pivot) < 0) {
+          left.Add(array[i]);
+        } else {
+          right.Add(array[i]);
+        }
       }
-      array = this.Swap(array, left, end);
-      Type[] leftArray = array.Take(left).ToArray();
-      Type[] rightArray = array.Skip(left).ToArray();
-      Console.WriteLine("Left: " + leftArray.Length);
-      Console.WriteLine("Right: " + rightArray.Length);
-      return new Type[2][] {
-        array.Take(left).ToArray(),
-        array.Skip(left).ToArray()
-      };
+      return new Type[3][] { left.ToArray(), new Type[1] { pivot }, right.ToArray() };
     }
+    
+    // public override Type[][] Divide(Type[] array) {
+    //   int middle = array.Length >> 1;
+    //   int end = array.Length - 1;
+    //   Type pivot = array[middle];
+    //   int left = 0;
+    //   int right = end - 1;
+    //   array = this.Swap(array, middle, end);
+    //   while (left < right) {
+    //     while (left < right && array[left].CompareTo(pivot) < 0) left++;
+    //     while (left < right && array[right].CompareTo(pivot) > 0) right--;
+    //     if (left < right) array = this.Swap(array, left, right);
+    //   }
+    //   array = this.Swap(array, left, end);
+    //   return new Type[2][] {
+    //     array.Take(left).ToArray(),
+    //     array.Skip(left).ToArray()
+    //   };
+    // }
 
-    private Type[] Swap(Type[] array, int left, int right) {
-      Type temp = array[left];
-      array[left] = array[right];
-      array[right] = temp;
-      return array;
-    }
+    // private Type[] Swap(Type[] array, int left, int right) {
+    //   Type temp = array[left];
+    //   array[left] = array[right];
+    //   array[right] = temp;
+    //   return array;
+    // }
 
     /// <summary>
     ///   Merge the two subarrays.
