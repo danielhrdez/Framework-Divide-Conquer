@@ -1,11 +1,15 @@
-
 namespace DivideConquer.Algorithms {
   class BinarySearch<Type> : Template<Type[], int> {
     private Type _search;
+
+    /// <summary>
+    /// Constructor of BinarySearch.
+    /// </summary>
+    /// <param name="search">The value to search for.</param>
     public BinarySearch(Type search) {
-      this._subproblems = "";
-      this._sizeSubproblems = "";
-      this._additionalComplexity = "";
+      this._subproblems = "2";
+      this._sizeSubproblems = "2";
+      this._additionalComplexity = "n";
       this._search = search;
     }
 
@@ -15,16 +19,16 @@ namespace DivideConquer.Algorithms {
     /// <param name="problem">The problem to solve.</param>
     /// <returns>True if the problem is solvable, false otherwise.</returns>
     public override bool Small(Type[] array) {
-      return array.Length < 1;
+      return array.Length < 2;
     }
 
     /// <summary>
     /// Solves a problem.
     /// </summary>
-    /// <param name="problem">The problem to solve.</param>
+    /// <param name="array">The problem to solve.</param>
     /// <returns>The solution to the problem.</returns>
-    public override int SolveSmall(Type problem) {
-      return -1;
+    public override int SolveSmall(Type array) {
+      return array[0] == this._search;
     }
 
     /// <summary>
@@ -34,11 +38,13 @@ namespace DivideConquer.Algorithms {
     /// <returns>The subproblems.</returns>
     public override Type[][] Divide(Type[] array) {
       int middle = array.Length >> 1;
-      if (array[middle] == this._search) return middle;
-      List<Type> left = new List<Type>();
-      List<Type> right = new List<Type>();
-      for (int i = 0; i < mid; i++) left.Add(array[i]);
-      for (int i = mid + 1; i < array.Length; i++) right.Add(array[i]);
+      Hashtable left = new List<object>();
+      Hashtable right = new List<object>();
+      List<object> middleList = new List<object>();
+      for (int i = 0; i < middle; i++) {
+        left.Add(array[i]);
+      }
+      for (int i = middle; i < array.Length; i++) right.Add(array[i]);
       return new Type[2][] { left.ToArray(), right.ToArray() };
     }
 
@@ -47,6 +53,8 @@ namespace DivideConquer.Algorithms {
     /// </summary>
     /// <param name="solutions">The solutions to combine.</param>
     /// <returns>The combined solution.</returns>
-    public override int Combine(int[] solutions);
+    public override int Combine(int[] solutions) {
+
+    }
   }
 }
