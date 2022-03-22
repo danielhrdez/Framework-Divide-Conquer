@@ -1,6 +1,9 @@
-using Solver = DivideConquer.Solver<int[], int[]>;
+using Sort = DivideConquer.Solver<int[], int[]>;
+using Search = DivideConquer.Solver<int[], int>;
 using MergeSort = DivideConquer.Algorithms.MergeSort<int>;
 using QuickSort = DivideConquer.Algorithms.QuickSort<int>;
+using BinarySearch = DivideConquer.Algorithms.BinarySearch<int>;
+// using HanoiTowers = DivideConquer.Algorithms.HanoiTowers<int>;
 using RandomArray = RandomGenerators.RandomArray;
 using System;
 using System.Diagnostics;
@@ -105,35 +108,43 @@ class DivideConquerMain {
   static void Main(string[] args) {
     DivideConquerMain main = new DivideConquerMain();
     bool output = false;
+    bool debug = false;
     main.PrintTitle();
-    if (args.Contains("-d")) main.PrintDebugMode();
+    if (args.Contains("-d")) {
+      debug = true;
+      main.PrintDebugMode();
+    }
     if (args.Contains("-o")) output = true;
     int option = main.PrintMenu();
     int[][] arrays = main.GenerateArrays(NUMBER_ARRAYS, int.MaxValue);
     switch (option) {
       case (int) Algorithm.MergeSort:
-        MergeSort mergeSort = new MergeSort();
-        Solver solver = new Solver(mergeSort);
-        object[][] timeResults = main.BenchAlgorithm(solver, arrays);
+        Sort sort = new Sort( new MergeSort());
+        object[][] timeResults = main.BenchAlgorithm(sorter, arrays);
         main.PrintResults(timeResults);
         if (output) main.WriteCSV(timeResults, "MergeSort");
         return;
       case (int) Algorithm.QuickSort:
-        QuickSort quickSort = new QuickSort();
-        solver = new Solver(quickSort);
-        timeResults = main.BenchAlgorithm(solver, arrays);
+        Sort sort = new Sort(new QuickSort());
+        timeResults = main.BenchAlgorithm(sort, arrays);
         main.PrintResults(timeResults);
         if (output) main.WriteCSV(timeResults, "QuickSort");
         return;
-      case (int) Algorithm.BinarySearch: return;
-      case (int) Algorithm.HanoiTowers: return;
+      case (int) Algorithm.BinarySearch:
+        BinarySearch binarySearch = new BinarySearch();
+        Search search = new Search(binarySearch);
+        object[][] timeResults = main.BenchAlgorithm(search, arrays);
+        main.PrintResults(timeResults);
+        if (output) main.WriteCSV(timeResults, "BinarySearch");
+        return;
+      case (int) Algorithm.HanoiTowers:
+        // HanoiTowers hanoiTowers = new HanoiTowers();
+        // Solver solver = new Solver(hanoiTowers);
+        // object[][] timeResults = main.BenchAlgorithm(solver, arrays);
+        // main.PrintResults(timeResults);
+        // if (output) main.WriteCSV(timeResults, "HanoiTowers");
+        return;
     }
-    // int[][] arrays = main.GenerateArrays(NUMBER_ARRAYS, int.MaxValue);
-    // Solver[] algorithms = main.CreateAlgorithms();
-    // object[][][] timeResults = main.TimeSorts(algorithms, arrays);
-    // if (args.Length > 1 && args[0] == "-o") {
-    //   main.WriteCSV(timeResults, args[1]);
-    // } else main.PrintResults(timeResults);
   }
 
   void PrintTitle() {
@@ -192,7 +203,9 @@ class DivideConquerMain {
   }
 
   void PrintDebugMode() {
+    Console.ForegroundColor = ConsoleColor.Red;
     Console.WriteLine("Debug Mode");
     Console.WriteLine();
+    Console.ResetColor();
   }
 }
