@@ -23,8 +23,8 @@ def plot(
   plt.plot(sizes, quick_sort, label='Quick Sort')
   plt.xlabel('Size')
   plt.ylabel('Time')
-  # plt.xscale('log', base=10)
-  # plt.yscale('log', base=10)
+  # plt.xscale('log', base=2)
+  # plt.yscale('log', base=2)
   plt.title('Merge Sort vs Quick Sort')
   plt.legend()
 
