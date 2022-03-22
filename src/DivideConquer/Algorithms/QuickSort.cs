@@ -40,11 +40,8 @@ namespace DivideConquer.Algorithms {
       List<Type> right = new List<Type>();
       Type pivot = array[0];
       for (int i = 1; i < array.Length; i++) {
-        if (array[i].CompareTo(pivot) < 0) {
-          left.Add(array[i]);
-        } else {
-          right.Add(array[i]);
-        }
+        if (array[i].CompareTo(pivot) < 0) left.Add(array[i]);
+        else right.Add(array[i]);
       }
       return new Type[3][] { left.ToArray(), new Type[1] { pivot }, right.ToArray() };
     }

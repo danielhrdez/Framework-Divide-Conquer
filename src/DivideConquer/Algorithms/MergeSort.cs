@@ -43,12 +43,8 @@ namespace DivideConquer.Algorithms {
       int mid = array.Length >> 1;
       List<Type> left = new List<Type>();
       List<Type> right = new List<Type>();
-      for (int i = 0; i < mid; i++) {
-        left.Add(array[i]);
-      }
-      for (int i = mid; i < array.Length; i++) {
-        right.Add(array[i]);
-      }
+      for (int i = 0; i < mid; i++) left.Add(array[i]);
+      for (int i = mid; i < array.Length; i++) right.Add(array[i]);
       return new Type[2][] { left.ToArray(), right.ToArray() };
     }
 
