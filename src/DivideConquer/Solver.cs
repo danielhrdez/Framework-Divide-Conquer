@@ -35,13 +35,22 @@ namespace DivideConquer {
     /// </summary>
     /// <returns>The name of the algorithm used by this solver.</returns>
 
-    public string GetAlgorithmName() {
+    public string AlgorithmName() {
       string name = this.algorithm
           .GetType()
           .Name
           .Substring(0, this.algorithm.GetType().Name.Length - 2);
       string type = this.algorithm.GetType().GetGenericArguments()[0].Name;
       return name + "<" + type + ">";
+    }
+
+    public string TimeComplexity() {
+      return string.Format(
+          "T(n) = {0} * T({1}) + O({2})",
+          this.algorithm.Subproblems(),
+          this.algorithm.SizeSubproblems(),
+          this.algorithm.AdditionalComplexity()
+      );
     }
   }
 }

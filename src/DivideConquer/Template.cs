@@ -1,5 +1,9 @@
 namespace DivideConquer {
   abstract class Template<Problem, Solution> {
+    protected string _subproblems;
+    protected string _sizeSubproblems;
+    protected string _additionalComplexity;
+
     /// <summary>
     /// Determines if a problem is solvable.
     /// </summary>
@@ -29,21 +33,27 @@ namespace DivideConquer {
     public abstract Solution Combine(Solution[] solutions);
 
     /// <summary>
-    /// Return The number of subproblems each time is divided.
+    /// Return the number of subproblems each time is divided.
     /// </summary>
     /// <returns>The number of subproblems each time is divided.</returns>
-    public abstract string Subproblems();
+    public string Subproblems() {
+      return this._subproblems;
+    }
 
     /// <summary>
     /// Return the size of each subproblem.
     /// </summary>
     /// <returns>The size of each subproblem.</returns>
-    public abstract string SizeSubproblems();
+    public string SizeSubproblems() {
+      return "n / " + this._sizeSubproblems;
+    }
 
     /// <summary>
     /// Return the complexity of the divide and combine step.
     /// </summary>
     /// <returns>The complexity of the divide and combine step.</returns>
-    public abstract string AdditionalComplexity();
+    public string AdditionalComplexity() {
+      return this._additionalComplexity;
+    }
   }
 }

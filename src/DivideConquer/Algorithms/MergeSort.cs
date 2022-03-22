@@ -3,6 +3,12 @@ using System.Collections.Generic;
 
 namespace DivideConquer.Algorithms {
   class MergeSort<Type> : Template<Type[], Type[]> where Type : IComparable {
+    public MergeSort() {
+      this._subproblems = "2";
+      this._sizeSubproblems = "2";
+      this._additionalComplexity = "n";
+    }
+
     /// <summary>
     /// Determines if an array is solvable when the array is length 2.
     /// </summary>
@@ -71,30 +77,6 @@ namespace DivideConquer.Algorithms {
         }
       }
       return combined.ToArray();
-    }
-
-    /// <summary>
-    /// Return the number of subproblems each time is divided.
-    /// </summary>
-    /// <returns>The number of subproblems each time is divided.</returns>
-    public override string Subproblems() {
-      return "2";
-    }
-
-    /// <summary>
-    /// Return the size of each subproblem.
-    /// </summary>
-    /// <returns>The size of each subproblem.</returns>
-    public override string SizeSubproblems() {
-      return "n / 2";
-    }
-
-    /// <summary>
-    /// Return the complexity of the divide and combine step.
-    /// </summary>
-    /// <returns>The complexity of the divide and combine step.</returns>
-    public override string AdditionalComplexity() {
-      return "O(n)";
     }
   }
 }

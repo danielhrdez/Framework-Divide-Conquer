@@ -37,10 +37,11 @@ class DivideConquerMain {
         sw.Start();
         algorithms[i].Solve(arrays[j]);
         sw.Stop();
-        timeResults[i][j] = new object[3] {
-          algorithms[i].GetAlgorithmName(), 
+        timeResults[i][j] = new object[4] {
+          algorithms[i].AlgorithmName(), 
           sw.ElapsedMilliseconds, 
-          arrays[j].Length
+          arrays[j].Length,
+          algorithms[i].TimeComplexity()
         };
       }
     }
@@ -58,6 +59,9 @@ class DivideConquerMain {
         Console.Write("  Time: {0}", timeResults[i][j][1]);
         Console.WriteLine("  Size: {0}", timeResults[i][j][2]);
       }
+      Console.WriteLine();
+      Console.WriteLine("  Time Complexity:");
+      Console.WriteLine("    " + timeResults[i][0][3]);
       Console.WriteLine();
     }
   }
@@ -105,8 +109,7 @@ class DivideConquerMain {
   /// <param name="args">The arguments.</param>
   static void Main(string[] args) {
     DivideConquerMain main = new DivideConquerMain();
-    // int[][] arrays = main.GenerateArrays(NUMBER_ARRAYS, int.MaxValue);
-    int[][] arrays = main.GenerateArrays(NUMBER_ARRAYS, 100);
+    int[][] arrays = main.GenerateArrays(NUMBER_ARRAYS, int.MaxValue);
     Solver[] algorithms = main.CreateAlgorithms();
     object[][][] timeResults = main.TimeSorts(algorithms, arrays);
     if (args.Length > 1 && args[0] == "-o") {
