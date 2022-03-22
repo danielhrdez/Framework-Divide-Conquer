@@ -6,3 +6,7 @@
  * @class HanoiTowers
  * @brief Implementación de las torres de Hanoi
  */
+
+namespace DivideConquer.Algorithms {
+  class HanoiTowers {}
+}

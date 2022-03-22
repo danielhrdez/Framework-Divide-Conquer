@@ -8,11 +8,11 @@
  */
 
 using Sorter = DivideConquer.Solver<int[], int[]>;
-using Searcher = DivideConquer.Solver<int[], int>;
+using Searcher = DivideConquer.Solver<int[], bool>;
 using MergeSort = DivideConquer.Algorithms.MergeSort<int>;
 using QuickSort = DivideConquer.Algorithms.QuickSort<int>;
 using BinarySearch = DivideConquer.Algorithms.BinarySearch<int>;
-// using HanoiTowers = DivideConquer.Algorithms.HanoiTowers<int>;
+using HanoiTowers = DivideConquer.Algorithms.HanoiTowers;
 using RandomArray = RandomGenerators.RandomArray;
 using System;
 using System.Diagnostics;
@@ -20,7 +20,7 @@ using System.IO;
 using System.Linq;
 
 class DivideConquerMain {
-  const int NUMBER_ARRAYS = 18;
+  const int NUMBER_ARRAYS = 15;
   const int MIN_SIZE = 1;
   const string TITLE = @"
 
@@ -164,11 +164,11 @@ class DivideConquerMain {
         if (output) main.WriteCSV(timeResults, "QuickSort");
         return;
       case Algorithm.BinarySearch:
-        BinarySearch binarySearch = new BinarySearch();
-        Searcher search = new Searcher(binarySearch);
-        timeResults = main.BenchSort(search, arrays);
-        main.PrintResults(timeResults);
-        if (output) main.WriteCSV(timeResults, "BinarySearch");
+        // BinarySearch binarySearch = new BinarySearch();
+        // Searcher search = new Searcher(binarySearch);
+        // timeResults = main.BenchSort(search, arrays);
+        // main.PrintResults(timeResults);
+        // if (output) main.WriteCSV(timeResults, "BinarySearch");
         return;
       case Algorithm.HanoiTowers:
         // HanoiTowers hanoiTowers = new HanoiTowers();

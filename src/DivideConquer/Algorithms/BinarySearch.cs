@@ -7,49 +7,53 @@
  * @brief Implementación de la búsqueda binaria
  */
 
+using System;
+using System.Collections.Generic;
+
 namespace DivideConquer.Algorithms {
-  class BinarySearch : Template<Search, int[]> {
+  class BinarySearch<Type> : Template<Type[], bool> where Type : IComparable {
+    private Type _search;
+
     /// <summary>
     /// Constructor of BinarySearch.
     /// </summary>
-    public BinarySearch() {
+    public BinarySearch(Type search) {
       this._subproblems = "2";
       this._sizeSubproblems = "2";
       this._additionalComplexity = "n";
+      this._search = search;
     }
 
     /// <summary>
     /// Determines if a problem is solvable.
     /// </summary>
-    /// <param name="problem">The problem to solve.</param>
+    /// <param name="array">The problem to solve.</param>
     /// <returns>True if the problem is solvable, false otherwise.</returns>
-    public override bool Small(Search problem) {
-      return problem.First == problem.End;
+    public override bool Small(Type[] array) {
+      return array.Length < 2;
     }
 
     /// <summary>
     /// Solves a problem.
     /// </summary>
-    /// <param name="problem">The problem to solve.</param>
+    /// <param name="array">The problem to solve.</param>
     /// <returns>The solution to the problem.</returns>
-    public override int[] SolveSmall(Search problem) {
-      if (problem.Array[0] == problem.Search) {
-        return new int[1] {problem.First};
-      }
-      return new int[1] {-1};
+    public override bool SolveSmall(Type[] array) {
+      return array[0].CompareTo(this._search) == 0;
     }
 
     /// <summary>
     /// Divide the problem into n subproblems of size m.
     /// </summary>
-    /// <param name="problem">The problem to divide.</param>
+    /// <param name="array">The problem to divide.</param>
     /// <returns>The subproblems.</returns>
-    public override Search[] Divide(Search problem) {
-      int middle = problem.Length >> 1;
-      return new Search[2] {
-        new Search(problem.Array, problem.Search, problem.First, middle),
-        new Search(problem.Array, problem.Search, middle, problem.Last)
-      };
+    public override Type[][] Divide(Type[] array) {
+      int middle = array.Length >> 1;
+      List<Type> left = new List<Type>();
+      List<Type> right = new List<Type>();
+      for (int i = 0; i < middle; i++) left.Add(array[i]);
+      for (int i = middle; i < array.Length; i++) right.Add(array[i]);
+      return new Type[2][] { left.ToArray(), right.ToArray() };
     }
 
     /// <summary>
@@ -57,14 +61,11 @@ namespace DivideConquer.Algorithms {
     /// </summary>
     /// <param name="solutions">The solutions to combine.</param>
     /// <returns>The combined solution.</returns>
-    public override int[] Combine(int[][] solutions) {
-      List<int> combined = new List<int>();
+    public override bool Combine(bool[] solutions) {
       for (int i = 0; i < solutions.Length; i++) {
-        if (solutions[i][0] != -1) {
-          combined.Add(solutions[i][0]);
-        }
+        if (solutions[i]) return true;
       }
-      return combined.ToArray();
+      return false;
     }
   }
 }
