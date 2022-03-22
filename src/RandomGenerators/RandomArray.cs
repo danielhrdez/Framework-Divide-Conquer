@@ -1,3 +1,12 @@
+/**
+ * Universidad de La Laguna
+ * Grado en Ingeniería Informática
+ * Diseño y Análisis de Algoritmos
+ * @author Daniel Hernandez de Leon
+ * @class RandomArray
+ * @brief Generador de arrays aleatorios
+ */
+
 using System;
 
 namespace RandomGenerators {

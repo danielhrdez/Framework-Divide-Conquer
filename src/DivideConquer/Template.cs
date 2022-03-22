@@ -1,3 +1,12 @@
+/**
+ * Universidad de La Laguna
+ * Grado en Ingeniería Informática
+ * Diseño y Análisis de Algoritmos
+ * @author Daniel Hernandez de Leon
+ * @class Template
+ * @brief Clase abstracta para algoritmos de divide y vencerás
+ */
+ 
 namespace DivideConquer {
   abstract class Template<Problem, Solution> {
     protected string _subproblems;

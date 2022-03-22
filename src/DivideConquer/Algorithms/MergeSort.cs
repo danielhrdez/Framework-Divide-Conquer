@@ -1,3 +1,12 @@
+/**
+ * Universidad de La Laguna
+ * Grado en Ingeniería Informática
+ * Diseño y Análisis de Algoritmos
+ * @author Daniel Hernandez de Leon
+ * @class MergeSort
+ * @brief Implementación de la ordenación por mezcla
+ */
+
 using System;
 using System.Collections.Generic;
 

@@ -1,3 +1,12 @@
+/**
+ * Universidad de La Laguna
+ * Grado en Ingeniería Informática
+ * Diseño y Análisis de Algoritmos
+ * @author Daniel Hernandez de Leon
+ * @class QuickSort
+ * @brief Implementación de la ordenación por selección
+ */
+
 using System;
 using System.Collections.Generic;
 

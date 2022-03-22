@@ -1,8 +1,17 @@
-using Sort = DivideConquer.Solver<int[], int[]>;
-using Search = DivideConquer.Solver<int[], int>;
+/**
+ * Universidad de La Laguna
+ * Grado en Ingeniería Informática
+ * Diseño y Análisis de Algoritmos
+ * @author Daniel Hernandez de Leon
+ * @class DivideConquerMain
+ * @brief Programa principal para el ejercicio de Divide y Vencerás
+ */
+
+using Sorter = DivideConquer.Solver<int[], int[]>;
+using Searcher = DivideConquer.Solver<int[], int>;
 using MergeSort = DivideConquer.Algorithms.MergeSort<int>;
 using QuickSort = DivideConquer.Algorithms.QuickSort<int>;
-// using BinarySearch = DivideConquer.Algorithms.BinarySearch<int>;
+using BinarySearch = DivideConquer.Algorithms.BinarySearch<int>;
 // using HanoiTowers = DivideConquer.Algorithms.HanoiTowers<int>;
 using RandomArray = RandomGenerators.RandomArray;
 using System;
@@ -37,7 +46,31 @@ class DivideConquerMain {
   /// <param name="algorithm">The algorithms to benchmark.</param>
   /// <param name="arrays">The arrays to benchmark.</param>
   /// <returns> The results of the benchmark.</returns>
-  object[][] BenchSort(Sort algorithm, int[][] arrays) {
+  object[][] BenchSort(Sorter algorithm, int[][] arrays) {
+    object[][] timeResults = new object[arrays.Length][];
+    Stopwatch sw = new Stopwatch();
+    for (int i = 0; i < arrays.Length; i++) {
+      sw.Reset();
+      sw.Start();
+      algorithm.Solve(arrays[i]);
+      sw.Stop();
+      timeResults[i] = new object[4] {
+        algorithm.AlgorithmName(), 
+        sw.ElapsedMilliseconds, 
+        arrays[i].Length,
+        algorithm.TimeComplexity()
+      };
+    }
+    return timeResults;
+  }
+
+  /// <summary>
+  ///   Benchamrk the algorithms.
+  /// </summary>
+  /// <param name="algorithm">The algorithms to benchmark.</param>
+  /// <param name="arrays">The arrays to benchmark.</param>
+  /// <returns> The results of the benchmark.</returns>
+  object[][] BenchSearch(Sorter algorithm, int[][] arrays) {
     object[][] timeResults = new object[arrays.Length][];
     Stopwatch sw = new Stopwatch();
     for (int i = 0; i < arrays.Length; i++) {
@@ -108,7 +141,7 @@ class DivideConquerMain {
     DivideConquerMain main = new DivideConquerMain();
     bool output = false;
     bool debug = false;
-    Sort sorter;
+    Sorter sorter;
     main.PrintTitle();
     if (args.Contains("-d")) {
       debug = true;
@@ -119,25 +152,24 @@ class DivideConquerMain {
     int[][] arrays = main.GenerateArrays(NUMBER_ARRAYS, int.MaxValue);
     switch (option) {
       case Algorithm.MergeSort:
-        sorter = new Sort( new MergeSort());
+        sorter = new Sorter( new MergeSort());
         object[][] timeResults = main.BenchSort(sorter, arrays);
         main.PrintResults(timeResults);
         if (output) main.WriteCSV(timeResults, "MergeSort");
         return;
       case Algorithm.QuickSort:
-        sorter = new Sort(new QuickSort());
+        sorter = new Sorter(new QuickSort());
         timeResults = main.BenchSort(sorter, arrays);
         main.PrintResults(timeResults);
         if (output) main.WriteCSV(timeResults, "QuickSort");
         return;
       case Algorithm.BinarySearch:
-        // BinarySearch binarySearch = new BinarySearch();
-        // Search search = new Search(binarySearch);
-        // object[][] timeResults = main.BenchSort(search, arrays);
-        // main.PrintResults(timeResults);
-        // if (output) main.WriteCSV(timeResults, "BinarySearch");
-        // return;
-        throw new NotImplementedException();
+        BinarySearch binarySearch = new BinarySearch();
+        Searcher search = new Searcher(binarySearch);
+        timeResults = main.BenchSort(search, arrays);
+        main.PrintResults(timeResults);
+        if (output) main.WriteCSV(timeResults, "BinarySearch");
+        return;
       case Algorithm.HanoiTowers:
         // HanoiTowers hanoiTowers = new HanoiTowers();
         // Solver solver = new Solver(hanoiTowers);
