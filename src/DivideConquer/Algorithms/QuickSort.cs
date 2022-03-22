@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace DivideConquer.Algorithms {
   class QuickSort<Type> : Template<Type[], Type[]> where Type : IComparable {
+    /// <summary>
+    /// Constructor of QuickSort.
+    /// </summary>
     public QuickSort() {
       this._subproblems = "2";
       this._sizeSubproblems = "2";

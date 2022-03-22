@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace DivideConquer.Algorithms {
   class MergeSort<Type> : Template<Type[], Type[]> where Type : IComparable {
+    /// <summary>
+    /// Constructor of MergeSort.
+    /// </summary>
     public MergeSort() {
       this._subproblems = "2";
       this._sizeSubproblems = "2";
