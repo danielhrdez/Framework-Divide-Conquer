@@ -2,7 +2,7 @@ using Sort = DivideConquer.Solver<int[], int[]>;
 using Search = DivideConquer.Solver<int[], int>;
 using MergeSort = DivideConquer.Algorithms.MergeSort<int>;
 using QuickSort = DivideConquer.Algorithms.QuickSort<int>;
-using BinarySearch = DivideConquer.Algorithms.BinarySearch<int>;
+// using BinarySearch = DivideConquer.Algorithms.BinarySearch<int>;
 // using HanoiTowers = DivideConquer.Algorithms.HanoiTowers<int>;
 using RandomArray = RandomGenerators.RandomArray;
 using System;
@@ -11,7 +11,7 @@ using System.IO;
 using System.Linq;
 
 class DivideConquerMain {
-  const int NUMBER_ARRAYS = 15;
+  const int NUMBER_ARRAYS = 18;
   const int MIN_SIZE = 1;
   const string TITLE = @"
 
@@ -37,8 +37,7 @@ class DivideConquerMain {
   /// <param name="algorithm">The algorithms to benchmark.</param>
   /// <param name="arrays">The arrays to benchmark.</param>
   /// <returns> The results of the benchmark.</returns>
-
-  object[][] BenchAlgorithm(Solver algorithm, int [][] arrays) {
+  object[][] BenchSort(Sort algorithm, int[][] arrays) {
     object[][] timeResults = new object[arrays.Length][];
     Stopwatch sw = new Stopwatch();
     for (int i = 0; i < arrays.Length; i++) {
@@ -109,41 +108,44 @@ class DivideConquerMain {
     DivideConquerMain main = new DivideConquerMain();
     bool output = false;
     bool debug = false;
+    Sort sorter;
     main.PrintTitle();
     if (args.Contains("-d")) {
       debug = true;
       main.PrintDebugMode();
     }
     if (args.Contains("-o")) output = true;
-    int option = main.PrintMenu();
+    Algorithm option = main.PrintMenu();
     int[][] arrays = main.GenerateArrays(NUMBER_ARRAYS, int.MaxValue);
     switch (option) {
-      case (int) Algorithm.MergeSort:
-        Sort sort = new Sort( new MergeSort());
-        object[][] timeResults = main.BenchAlgorithm(sorter, arrays);
+      case Algorithm.MergeSort:
+        sorter = new Sort( new MergeSort());
+        object[][] timeResults = main.BenchSort(sorter, arrays);
         main.PrintResults(timeResults);
         if (output) main.WriteCSV(timeResults, "MergeSort");
         return;
-      case (int) Algorithm.QuickSort:
-        Sort sort = new Sort(new QuickSort());
-        timeResults = main.BenchAlgorithm(sort, arrays);
+      case Algorithm.QuickSort:
+        sorter = new Sort(new QuickSort());
+        timeResults = main.BenchSort(sorter, arrays);
         main.PrintResults(timeResults);
         if (output) main.WriteCSV(timeResults, "QuickSort");
         return;
-      case (int) Algorithm.BinarySearch:
-        BinarySearch binarySearch = new BinarySearch();
-        Search search = new Search(binarySearch);
-        object[][] timeResults = main.BenchAlgorithm(search, arrays);
-        main.PrintResults(timeResults);
-        if (output) main.WriteCSV(timeResults, "BinarySearch");
-        return;
-      case (int) Algorithm.HanoiTowers:
+      case Algorithm.BinarySearch:
+        // BinarySearch binarySearch = new BinarySearch();
+        // Search search = new Search(binarySearch);
+        // object[][] timeResults = main.BenchSort(search, arrays);
+        // main.PrintResults(timeResults);
+        // if (output) main.WriteCSV(timeResults, "BinarySearch");
+        // return;
+        throw new NotImplementedException();
+      case Algorithm.HanoiTowers:
         // HanoiTowers hanoiTowers = new HanoiTowers();
         // Solver solver = new Solver(hanoiTowers);
-        // object[][] timeResults = main.BenchAlgorithm(solver, arrays);
+        // object[][] timeResults = main.BenchSort(solver, arrays);
         // main.PrintResults(timeResults);
         // if (output) main.WriteCSV(timeResults, "HanoiTowers");
-        return;
+        // return;
+        throw new NotImplementedException();
     }
   }
 
@@ -154,7 +156,7 @@ class DivideConquerMain {
     Console.ResetColor();
   }
 
-  int PrintMenu() {
+  Algorithm PrintMenu() {
     Console.OutputEncoding = System.Text.Encoding.UTF8;
     Console.WriteLine("Choose Algorithm:");
     Console.ForegroundColor = ConsoleColor.Red;
@@ -169,9 +171,11 @@ class DivideConquerMain {
     Console.ForegroundColor = ConsoleColor.Magenta;
     Console.WriteLine("  Hanoi Towers 🗼");
     Console.ResetColor();
-    Console.SetCursorPosition(0, Console.CursorTop - 1);
+    Console.SetCursorPosition(0, Console.CursorTop - 4);
+    Console.Write(">");
+    Console.SetCursorPosition(0, Console.CursorTop);
     const int MAX = 4;
-    int current = 3;
+    int current = 0;
     while(true) {
       switch (Console.ReadKey(true).Key) {
         case ConsoleKey.UpArrow:
@@ -195,9 +199,8 @@ class DivideConquerMain {
           }
           break;
         case ConsoleKey.Enter:
-        default:
-          Console.Clear();
-          return current;
+          Console.SetCursorPosition(0, Console.CursorTop + 5 - current);
+          return (Algorithm) current;
       }
     }
   }
