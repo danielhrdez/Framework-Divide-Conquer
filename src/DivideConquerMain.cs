@@ -12,8 +12,9 @@ using Searcher = DivideConquer.Solver<int[], bool>;
 using MergeSort = DivideConquer.Algorithms.MergeSort<int>;
 using QuickSort = DivideConquer.Algorithms.QuickSort<int>;
 using BinarySearch = DivideConquer.Algorithms.BinarySearch<int>;
-using HanoiTowers = DivideConquer.Algorithms.HanoiTowers;
+using HanoiTower = DivideConquer.Algorithms.HanoiTower;
 using RandomArray = RandomGenerators.RandomArray;
+
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -37,7 +38,7 @@ class DivideConquerMain {
     MergeSort,
     QuickSort,
     BinarySearch,
-    HanoiTowers,
+    HanoiTower,
   }
 
   /// <summary>
@@ -170,12 +171,12 @@ class DivideConquerMain {
         // main.PrintResults(timeResults);
         // if (output) main.WriteCSV(timeResults, "BinarySearch");
         return;
-      case Algorithm.HanoiTowers:
-        // HanoiTowers hanoiTowers = new HanoiTowers();
-        // Solver solver = new Solver(hanoiTowers);
+      case Algorithm.HanoiTower:
+        // HanoiTower HanoiTower = new HanoiTower();
+        // Solver solver = new Solver(HanoiTower);
         // object[][] timeResults = main.BenchSort(solver, arrays);
         // main.PrintResults(timeResults);
-        // if (output) main.WriteCSV(timeResults, "HanoiTowers");
+        // if (output) main.WriteCSV(timeResults, "HanoiTower");
         // return;
         throw new NotImplementedException();
     }

@@ -7,53 +7,60 @@
  * @brief Implementación de la búsqueda binaria
  */
 
-using System;
 using System.Collections.Generic;
 
 namespace DivideConquer.Algorithms {
-  class BinarySearch<Type> : Template<Type[], bool> where Type : IComparable {
-    private Type _search;
-
+  class BinarySearch<Type> : Template<Type, int[]> where Type : IComparable {
     /// <summary>
     /// Constructor of BinarySearch.
     /// </summary>
-    public BinarySearch(Type search) {
+    public BinarySearch() {
       this._subproblems = "2";
       this._sizeSubproblems = "2";
       this._additionalComplexity = "n";
-      this._search = search;
     }
 
     /// <summary>
     /// Determines if a problem is solvable.
     /// </summary>
-    /// <param name="array">The problem to solve.</param>
+    /// <param name="problem">The problem to solve.</param>
     /// <returns>True if the problem is solvable, false otherwise.</returns>
-    public override bool Small(Type[] array) {
-      return array.Length < 2;
+    public override bool Small(Type problem) {
+      this.CheckType(problem);
+      return problem.Length < 2;
     }
 
     /// <summary>
     /// Solves a problem.
     /// </summary>
-    /// <param name="array">The problem to solve.</param>
+    /// <param name="problem">The problem to solve.</param>
     /// <returns>The solution to the problem.</returns>
-    public override bool SolveSmall(Type[] array) {
-      return array[0].CompareTo(this._search) == 0;
+    public override int[] SolveSmall(Type problem) {
+      if (problem.List[0].CompareTo(problem.Search) == 0) {
+        return new int[1] { problem.Index };
+      }
+      return new int[1] { -1 };
     }
 
     /// <summary>
     /// Divide the problem into n subproblems of size m.
     /// </summary>
-    /// <param name="array">The problem to divide.</param>
+    /// <param name="problem">The problem to divide.</param>
     /// <returns>The subproblems.</returns>
-    public override Type[][] Divide(Type[] array) {
-      int middle = array.Length >> 1;
-      List<Type> left = new List<Type>();
-      List<Type> right = new List<Type>();
-      for (int i = 0; i < middle; i++) left.Add(array[i]);
-      for (int i = middle; i < array.Length; i++) right.Add(array[i]);
-      return new Type[2][] { left.ToArray(), right.ToArray() };
+    public override Type[] Divide(Type problem) {
+      int middle = problem.List.Length >> 1;
+      Type[] subproblems = new Type[2];
+      subproblems[0] = new Type(
+        problem.List.GetRange(0, middle),
+        problem.Search,
+        problem.Index
+      );
+      subproblems[1] = new Type(
+        problem.List.GetRange(middle, problem.List.Length - middle),
+        problem.Search,
+        problem.Index + middle
+      );
+      return subproblems;
     }
 
     /// <summary>
@@ -61,11 +68,29 @@ namespace DivideConquer.Algorithms {
     /// </summary>
     /// <param name="solutions">The solutions to combine.</param>
     /// <returns>The combined solution.</returns>
-    public override bool Combine(bool[] solutions) {
-      for (int i = 0; i < solutions.Length; i++) {
-        if (solutions[i]) return true;
+    public override int[] Combine(int[][] solutions) {
+      List<int> result = new List<int>();
+      foreach (int[] solution in solutions) {
+        foreach (int element in solution) {
+          if (element != -1) {
+            result.Add(element);
+          }
+        }
       }
-      return false;
+      return result.ToArray();
+    }
+
+    private bool HasProperty(object obj, string propertyName, string type) {
+      return obj.GetType().GetProperty(propertyName) == type;
+    }
+
+    private bool CheckType(object obj) {
+      if (
+        this.HasProperty(obj, "List", typeof(Type[])) &&
+        this.HasProperty(obj, "Search", typeof(Type)) &&
+        this.HasProperty(obj, "Index", typeof(int))
+      ) return true;
+      throw new System.Exception("The object is not a valid problem.");
     }
   }
 }

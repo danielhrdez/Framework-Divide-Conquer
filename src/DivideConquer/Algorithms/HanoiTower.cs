@@ -3,10 +3,10 @@
  * Grado en Ingeniería Informática
  * Diseño y Análisis de Algoritmos
  * @author Daniel Hernandez de Leon
- * @class HanoiTowers
+ * @class HanoiTower
  * @brief Implementación de las torres de Hanoi
  */
 
 namespace DivideConquer.Algorithms {
-  class HanoiTowers {}
+  class HanoiTower {}
 }
