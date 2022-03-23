@@ -7,10 +7,12 @@
  * @brief Implementación de la búsqueda binaria
  */
 
+using System;
 using System.Collections.Generic;
+using DivideConquer.Types;
 
 namespace DivideConquer.Algorithms {
-  class BinarySearch<Type> : Template<Type, int[]> where Type : IComparable {
+  class BinarySearch<Type> : Template<Type, int[]> where Type : Problem {
     /// <summary>
     /// Constructor of BinarySearch.
     /// </summary>
@@ -26,8 +28,7 @@ namespace DivideConquer.Algorithms {
     /// <param name="problem">The problem to solve.</param>
     /// <returns>True if the problem is solvable, false otherwise.</returns>
     public override bool Small(Type problem) {
-      this.CheckType(problem);
-      return problem.Length < 2;
+      return problem.List.Length < 2;
     }
 
     /// <summary>
@@ -36,7 +37,7 @@ namespace DivideConquer.Algorithms {
     /// <param name="problem">The problem to solve.</param>
     /// <returns>The solution to the problem.</returns>
     public override int[] SolveSmall(Type problem) {
-      if (problem.List[0].CompareTo(problem.Search) == 0) {
+      if (problem.List[0].CompareTo(problem.Item) == 0) {
         return new int[1] { problem.Index };
       }
       return new int[1] { -1 };
@@ -50,14 +51,14 @@ namespace DivideConquer.Algorithms {
     public override Type[] Divide(Type problem) {
       int middle = problem.List.Length >> 1;
       Type[] subproblems = new Type[2];
-      subproblems[0] = new Type(
+      subproblems[0] = new Problem(
         problem.List.GetRange(0, middle),
-        problem.Search,
+        problem.Item,
         problem.Index
       );
       subproblems[1] = new Type(
         problem.List.GetRange(middle, problem.List.Length - middle),
-        problem.Search,
+        problem.Item,
         problem.Index + middle
       );
       return subproblems;
@@ -78,19 +79,6 @@ namespace DivideConquer.Algorithms {
         }
       }
       return result.ToArray();
-    }
-
-    private bool HasProperty(object obj, string propertyName, string type) {
-      return obj.GetType().GetProperty(propertyName) == type;
-    }
-
-    private bool CheckType(object obj) {
-      if (
-        this.HasProperty(obj, "List", typeof(Type[])) &&
-        this.HasProperty(obj, "Search", typeof(Type)) &&
-        this.HasProperty(obj, "Index", typeof(int))
-      ) return true;
-      throw new System.Exception("The object is not a valid problem.");
     }
   }
 }

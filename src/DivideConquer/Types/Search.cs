@@ -1,12 +1,15 @@
+using System;
+using System.Collections.Generic;
+
 namespace DivideConquer.Types {
-  class Search<Type> {
+  class Search<Type> : Problem where Type : IComparable {
     private Type[] _list;
-    private Type _search;
+    private Type _item;
     private int _index;
 
-    public Search(Type[] list, Type search, int index = 0) {
+    public Search(Type[] list, Type item, int index = 0) {
       this._list = list;
-      this._search = search;
+      this._item = item;
       this._index = index;
     }
     
@@ -15,9 +18,9 @@ namespace DivideConquer.Types {
       set { this._list = value; }
     }
 
-    public Type Search {
-      get { return this._search; }
-      set { this._search = value; }
+    public Type Item {
+      get { return this._item; }
+      set { this._item = value; }
     }
 
     public int Index {
