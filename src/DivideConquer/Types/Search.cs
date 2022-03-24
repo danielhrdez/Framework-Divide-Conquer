@@ -1,15 +1,24 @@
+/**
+ * Universidad de La Laguna
+ * Grado en Ingeniería Informática
+ * Diseño y Análisis de Algoritmos
+ * @author Daniel Hernandez de Leon
+ * @class Search
+ * @brief Clase generica para los problemas de busqueda
+ */
+ 
 using System;
 using System.Collections.Generic;
 
 namespace DivideConquer.Types {
-  class Search<Type> : Problem where Type : IComparable {
+  class Search<Type> where Type : IComparable {
     private Type[] _list;
-    private Type _item;
+    private Type _target;
     private int _index;
 
-    public Search(Type[] list, Type item, int index = 0) {
+    public Search(Type[] list, Type target, int index = 0) {
       this._list = list;
-      this._item = item;
+      this._target = target;
       this._index = index;
     }
     
@@ -18,9 +27,9 @@ namespace DivideConquer.Types {
       set { this._list = value; }
     }
 
-    public Type Item {
-      get { return this._item; }
-      set { this._item = value; }
+    public Type Target {
+      get { return this._target; }
+      set { this._target = value; }
     }
 
     public int Index {

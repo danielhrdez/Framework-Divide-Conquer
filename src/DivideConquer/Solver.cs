@@ -49,8 +49,7 @@ namespace DivideConquer {
           .GetType()
           .Name
           .Substring(0, this._algorithm.GetType().Name.Length - 2);
-      string type = this._algorithm.GetType().GetGenericArguments()[0].Name;
-      return name + "<" + type + ">";
+      return name + "<" + typeof(Problem).Name + ", " + typeof(Solution).Name + ">";
     }
 
     public string TimeComplexity() {

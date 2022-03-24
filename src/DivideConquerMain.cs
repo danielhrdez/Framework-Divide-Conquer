@@ -8,19 +8,21 @@
  */
 
 using Sorter = DivideConquer.Solver<int[], int[]>;
-using Searcher = DivideConquer.Solver<int[], bool>;
+using Searcher = DivideConquer.Solver<DivideConquer.Types.Search<int>, int>;
 using MergeSort = DivideConquer.Algorithms.MergeSort<int>;
 using QuickSort = DivideConquer.Algorithms.QuickSort<int>;
+using SearchInt = DivideConquer.Types.Search<int>;
 using BinarySearch = DivideConquer.Algorithms.BinarySearch<DivideConquer.Types.Search<int>, int>;
-using HanoiTower = DivideConquer.Algorithms.HanoiTower;
-using RandomArray = RandomGenerators.RandomArray;
+// using HanoiTower = DivideConquer.Algorithms.HanoiTower;
+using RandomGenerators;
 using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
 class DivideConquerMain {
-  const int NUMBER_ARRAYS = 15;
+  const int NUMBER_ARRAYS = 29;
+  const int MAX_VALUE = 100;
   const int MIN_SIZE = 1;
   const string TITLE = @"
 
@@ -70,7 +72,7 @@ class DivideConquerMain {
   /// <param name="algorithm">The algorithms to benchmark.</param>
   /// <param name="arrays">The arrays to benchmark.</param>
   /// <returns> The results of the benchmark.</returns>
-  object[][] BenchSearch(Sorter algorithm, int[][] arrays) {
+  object[][] BenchSearch(Searcher algorithm, SearchInt[] arrays) {
     object[][] timeResults = new object[arrays.Length][];
     Stopwatch sw = new Stopwatch();
     for (int i = 0; i < arrays.Length; i++) {
@@ -81,7 +83,7 @@ class DivideConquerMain {
       timeResults[i] = new object[4] {
         algorithm.AlgorithmName(), 
         sw.ElapsedMilliseconds, 
-        arrays[i].Length,
+        arrays[i].List.Length,
         algorithm.TimeComplexity()
       };
     }
@@ -107,16 +109,35 @@ class DivideConquerMain {
   /// <summary>
   ///   Generate random arrays.
   /// </summary>
-  /// <param name="size">The size of the arrays.</param>
-  /// <param name="generator">The random generator.</param>
+  /// <param name="maxSize">The size of the arrays.</param>
+  /// <param name="maxValue">The random generator.</param>
   /// <returns>The random arrays.</returns>
   int[][] GenerateArrays(int maxSize, int maxValue) {
     int[][] arrays = new int[maxSize][];
-    RandomArray generator = new RandomArray();
+    RandomArray<int> generator = new RandomArray<int>();
     for (int size = MIN_SIZE, i = 0; i < maxSize; size *= 2, i++) {
       arrays[i] = generator.Create(size, (int seed) => {
         return new Random(seed).Next(maxValue);
       });
+    }
+    return arrays;
+  }
+
+  /// <summary>
+  ///   Generate search arrays.
+  /// </summary>
+  /// <param name="size">The size of the arrays.</param>
+  /// <returns>The search arrays.</returns>
+  SearchInt[] GenerateSearchArrays(int maxSize) {
+    SearchInt[] arrays = new SearchInt[maxSize];
+    int[] intArray;
+    for (int size = MIN_SIZE, i = 0; i < maxSize; size *= 2, i++) {
+      intArray = new int[size];
+      for (int j = 0; j < size; j++) {
+        intArray[j] = j;
+      }
+      int randomPosition = new Random().Next(size);
+      arrays[i] = new SearchInt(intArray, intArray[randomPosition]);
     }
     return arrays;
   }
@@ -149,31 +170,35 @@ class DivideConquerMain {
     }
     if (args.Contains("-o")) output = true;
     Algorithm option = main.PrintMenu();
-    int[][] arrays = main.GenerateArrays(NUMBER_ARRAYS, int.MaxValue);
+    int[][] arrays;
+    SearchInt[] searchArrays;
     switch (option) {
       case Algorithm.MergeSort:
-        sorter = new Sorter( new MergeSort());
+        arrays = main.GenerateArrays(NUMBER_ARRAYS, MAX_VALUE);
+        sorter = new Sorter(new MergeSort());
         object[][] timeResults = main.BenchSort(sorter, arrays);
         main.PrintResults(timeResults);
         if (output) main.WriteCSV(timeResults, "MergeSort");
         return;
       case Algorithm.QuickSort:
+        arrays = main.GenerateArrays(NUMBER_ARRAYS, MAX_VALUE);
         sorter = new Sorter(new QuickSort());
         timeResults = main.BenchSort(sorter, arrays);
         main.PrintResults(timeResults);
         if (output) main.WriteCSV(timeResults, "QuickSort");
         return;
       case Algorithm.BinarySearch:
+        searchArrays = main.GenerateSearchArrays(NUMBER_ARRAYS);
         BinarySearch binarySearch = new BinarySearch();
         Searcher search = new Searcher(binarySearch);
-        timeResults = main.BenchSort(search, arrays);
+        timeResults = main.BenchSearch(search, searchArrays);
         main.PrintResults(timeResults);
         if (output) main.WriteCSV(timeResults, "BinarySearch");
         return;
       case Algorithm.HanoiTower:
         // HanoiTower HanoiTower = new HanoiTower();
         // Solver solver = new Solver(HanoiTower);
-        // object[][] timeResults = main.BenchSort(solver, arrays);
+        // object[][] timeResults = main.Benchmark(solver, arrays);
         // main.PrintResults(timeResults);
         // if (output) main.WriteCSV(timeResults, "HanoiTower");
         // return;
