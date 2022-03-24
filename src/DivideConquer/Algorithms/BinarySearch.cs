@@ -12,7 +12,9 @@ using System.Collections.Generic;
 using DivideConquer.Types;
 
 namespace DivideConquer.Algorithms {
-  class BinarySearch<Type> : Template<Type, int[]> where Type : Problem {
+  class BinarySearch<S, T> : Template<S, int[]>
+      where S : Search<T>
+      where T : IComparable {
     /// <summary>
     /// Constructor of BinarySearch.
     /// </summary>
@@ -27,7 +29,7 @@ namespace DivideConquer.Algorithms {
     /// </summary>
     /// <param name="problem">The problem to solve.</param>
     /// <returns>True if the problem is solvable, false otherwise.</returns>
-    public override bool Small(Type problem) {
+    public override bool Small(S problem) {
       return problem.List.Length < 2;
     }
 
@@ -36,7 +38,7 @@ namespace DivideConquer.Algorithms {
     /// </summary>
     /// <param name="problem">The problem to solve.</param>
     /// <returns>The solution to the problem.</returns>
-    public override int[] SolveSmall(Type problem) {
+    public override int[] SolveSmall(S problem) {
       if (problem.List[0].CompareTo(problem.Item) == 0) {
         return new int[1] { problem.Index };
       }
@@ -48,19 +50,33 @@ namespace DivideConquer.Algorithms {
     /// </summary>
     /// <param name="problem">The problem to divide.</param>
     /// <returns>The subproblems.</returns>
-    public override Type[] Divide(Type problem) {
+    public override S[] Divide(S problem) {
       int middle = problem.List.Length >> 1;
-      Type[] subproblems = new Type[2];
-      subproblems[0] = new Problem(
-        problem.List.GetRange(0, middle),
-        problem.Item,
-        problem.Index
-      );
-      subproblems[1] = new Type(
-        problem.List.GetRange(middle, problem.List.Length - middle),
-        problem.Item,
-        problem.Index + middle
-      );
+      List<T> left = new List<T>();
+      List<T> right = new List<T>();
+      for (int i = 0; i < middle; i++) {
+        left.Add(problem.List[i]);
+      }
+      for (int i = middle; i < problem.List.Length; i++) {
+        right.Add(problem.List[i]);
+      }
+      S[] subproblems = new S[2];
+      subproblems[0] = Activator.CreateInstance(
+        typeof(S),
+        new object[] {
+          left,
+          problem.Item,
+          problem.Index
+        }
+      ) as S;
+      subproblems[1] = Activator.CreateInstance(
+        typeof(S),
+        new object[] {
+          right,
+          problem.Item,
+          problem.Index + middle
+        }
+      ) as S;
       return subproblems;
     }
 
