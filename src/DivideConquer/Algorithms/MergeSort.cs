@@ -17,7 +17,7 @@ namespace DivideConquer.Algorithms {
     /// </summary>
     public MergeSort() {
       this._subproblems = "2";
-      this._sizeSubproblems = "2";
+      this._sizeSubproblems = "n / 2";
       this._additionalComplexity = "n";
     }
 

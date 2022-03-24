@@ -20,7 +20,7 @@ namespace DivideConquer.Algorithms {
     /// </summary>
     public BinarySearch() {
       this._subproblems = "1";
-      this._sizeSubproblems = "2";
+      this._sizeSubproblems = "n / 2";
       this._additionalComplexity = "1";
     }
 

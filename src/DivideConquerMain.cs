@@ -21,7 +21,7 @@ using System.IO;
 using System.Linq;
 
 class DivideConquerMain {
-  const int NUMBER_ARRAYS = 29;
+  const int NUMBER_ARRAYS = 28;
   const int MAX_VALUE = 100;
   const int MIN_SIZE = 1;
   const string TITLE = @"
@@ -112,10 +112,10 @@ class DivideConquerMain {
   /// <param name="maxSize">The size of the arrays.</param>
   /// <param name="maxValue">The random generator.</param>
   /// <returns>The random arrays.</returns>
-  int[][] GenerateArrays(int maxSize, int maxValue) {
+  int[][] GenerateArrays(int minSize, int maxSize, int maxValue) {
     int[][] arrays = new int[maxSize][];
     RandomArray<int> generator = new RandomArray<int>();
-    for (int size = MIN_SIZE, i = 0; i < maxSize; size *= 2, i++) {
+    for (int size = minSize, i = 0; i < maxSize; size *= 2, i++) {
       arrays[i] = generator.Create(size, (int seed) => {
         return new Random(seed).Next(maxValue);
       });
@@ -128,10 +128,10 @@ class DivideConquerMain {
   /// </summary>
   /// <param name="size">The size of the arrays.</param>
   /// <returns>The search arrays.</returns>
-  SearchInt[] GenerateSearchArrays(int maxSize) {
+  SearchInt[] GenerateSearchArrays(int minSize, int maxSize) {
     SearchInt[] arrays = new SearchInt[maxSize];
     int[] intArray;
-    for (int size = MIN_SIZE, i = 0; i < maxSize; size *= 2, i++) {
+    for (int size = minSize, i = 0; i < maxSize; size *= 2, i++) {
       intArray = new int[size];
       for (int j = 0; j < size; j++) {
         intArray[j] = j;
@@ -161,34 +161,48 @@ class DivideConquerMain {
   static void Main(string[] args) {
     DivideConquerMain main = new DivideConquerMain();
     bool output = false;
-    // bool debug = false;
+    bool debug = false;
+    int[][] arrays;
+    SearchInt[] searchArrays;
     Sorter sorter;
+    int size = 1;
     main.PrintTitle();
     if (args.Contains("-d")) {
-      // debug = true;
+      debug = true;
       main.PrintDebugMode();
     }
     if (args.Contains("-o")) output = true;
     Algorithm option = main.PrintMenu();
-    int[][] arrays;
-    SearchInt[] searchArrays;
+    if (debug) size = main.ChooseSize();
     switch (option) {
       case Algorithm.MergeSort:
-        arrays = main.GenerateArrays(NUMBER_ARRAYS, MAX_VALUE);
+        if (!debug) arrays = main.GenerateArrays(size, NUMBER_ARRAYS, MAX_VALUE);
+        else {
+          arrays = main.GenerateArrays(size, 1, MAX_VALUE);
+          Console.WriteLine("Array generated: [" + string.Join(", ", arrays[0]) + "]\n");
+        }
         sorter = new Sorter(new MergeSort());
         object[][] timeResults = main.BenchSort(sorter, arrays);
         main.PrintResults(timeResults);
         if (output) main.WriteCSV(timeResults, "MergeSort");
         return;
       case Algorithm.QuickSort:
-        arrays = main.GenerateArrays(NUMBER_ARRAYS, MAX_VALUE);
+        if (!debug) arrays = main.GenerateArrays(size, NUMBER_ARRAYS, MAX_VALUE);
+        else {
+          arrays = main.GenerateArrays(size, 1, MAX_VALUE);
+          Console.WriteLine("Array generated: [" + string.Join(", ", arrays[0]) + "]\n");
+        }
         sorter = new Sorter(new QuickSort());
         timeResults = main.BenchSort(sorter, arrays);
         main.PrintResults(timeResults);
         if (output) main.WriteCSV(timeResults, "QuickSort");
         return;
       case Algorithm.BinarySearch:
-        searchArrays = main.GenerateSearchArrays(NUMBER_ARRAYS);
+        if (!debug) searchArrays = main.GenerateSearchArrays(size, NUMBER_ARRAYS);
+        else {
+          searchArrays = main.GenerateSearchArrays(size, 1);
+          Console.WriteLine("Array generated: [" + string.Join(", ", searchArrays[0]) + "]\n");
+        }
         BinarySearch binarySearch = new BinarySearch();
         Searcher search = new Searcher(binarySearch);
         timeResults = main.BenchSearch(search, searchArrays);
@@ -203,6 +217,23 @@ class DivideConquerMain {
         // if (output) main.WriteCSV(timeResults, "HanoiTower");
         // return;
         throw new NotImplementedException();
+    }
+  }
+
+  int ChooseSize() {
+    string read;
+    int size;
+    string message = "Choose the size of the arrays: ";
+    Console.Write(message);
+    while (true) {
+      Console.ForegroundColor = ConsoleColor.Yellow;
+      read = Console.ReadLine();
+      Console.ResetColor();
+      Console.WriteLine();
+      if (int.TryParse(read, out size)) {
+        if (size > 0) return size;
+      }
+      Console.SetCursorPosition(message.Length, Console.CursorTop - 2);
     }
   }
 

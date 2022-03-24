@@ -54,7 +54,7 @@ namespace DivideConquer {
     /// </summary>
     /// <returns>The size of each subproblem.</returns>
     public string SizeSubproblems() {
-      return "n / " + this._sizeSubproblems;
+      return this._sizeSubproblems;
     }
 
     /// <summary>
