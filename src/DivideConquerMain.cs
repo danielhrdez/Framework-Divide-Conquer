@@ -21,8 +21,8 @@ using System.IO;
 using System.Linq;
 
 class DivideConquerMain {
-  const int NUMBER_ARRAYS = 15;
-  const int NUMBER_SEARCH = 25;
+  const int NUMBER_ARRAYS = 18;
+  const int NUMBER_SEARCH = 28;
   const int NUMBER_TOWERS = 5;
   const int MAX_VALUE = 100;
   const int MIN_SIZE = 1;
