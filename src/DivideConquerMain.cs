@@ -9,8 +9,11 @@ using Searcher = DivideConquer.Solver<DivideConquer.Types.Search<int>, int>;
 using MergeSort = DivideConquer.Algorithms.MergeSort<int>;
 using QuickSort = DivideConquer.Algorithms.QuickSort<int>;
 using SearchInt = DivideConquer.Types.Search<int>;
+using Tower = DivideConquer.Types.Tower;
+using Step = DivideConquer.Types.Step;
 using BinarySearch = DivideConquer.Algorithms.BinarySearch<DivideConquer.Types.Search<int>, int>;
-// using HanoiTower = DivideConquer.Algorithms.HanoiTower;
+using HanoiTower = DivideConquer.Algorithms.HanoiTower;
+using TowerSolver = DivideConquer.Solver<DivideConquer.Types.Tower, DivideConquer.Types.Step[]>;
 using RandomGenerators;
 using System;
 using System.Diagnostics;
@@ -18,7 +21,9 @@ using System.IO;
 using System.Linq;
 
 class DivideConquerMain {
-  const int NUMBER_ARRAYS = 20;
+  const int NUMBER_ARRAYS = 15;
+  const int NUMBER_SEARCH = 25;
+  const int NUMBER_TOWERS = 5;
   const int MAX_VALUE = 100;
   const int MIN_SIZE = 1;
   const string TITLE = @"
@@ -92,6 +97,37 @@ class DivideConquerMain {
   }
 
   /// <summary>
+  ///   Benchamrk the algorithms.
+  /// </summary>
+  /// <param name="algorithm">The algorithms to benchmark.</param>
+  /// <param name="arrays">The arrays to benchmark.</param>
+  /// <returns> The results of the benchmark.</returns>
+  object[][] BenchTower(TowerSolver algorithm, Tower[] arrays, bool debug) {
+    object[][] timeResults = new object[arrays.Length][];
+    Stopwatch sw = new Stopwatch();
+    for (int i = 0; i < arrays.Length; i++) {
+      sw.Reset();
+      sw.Start();
+      Step[] steps = algorithm.Solve(arrays[i]);
+      sw.Stop();
+      if (debug) {
+        int index = 0;
+        foreach (Step step in steps) {
+          Console.WriteLine("Step " + index + ": \n  " + step.ToString() + "\n");
+          index++;
+        }
+      }
+      timeResults[i] = new object[4] {
+        algorithm.AlgorithmName(), 
+        sw.ElapsedMilliseconds, 
+        arrays[i].Disks,
+        algorithm.TimeComplexity()
+      };
+    }
+    return timeResults;
+  }
+
+  /// <summary>
   ///   Print the results of the benchmark.
   /// </summary>
   /// <param name="timeResults">The results of the benchmark.</param>
@@ -143,6 +179,19 @@ class DivideConquerMain {
     return arrays;
   }
 
+  /// <summary>
+  ///   Generate Tower arrays.
+  /// </summary>
+  /// <param name="size">The size of the arrays.</param>
+  /// <returns>The Tower arrays.</returns>
+  Tower[] GenerateTowerArrays(int minSize, int maxSize) {
+    Tower[] towers = new Tower[maxSize];
+    for (int size = minSize, i = 0; i < maxSize; size *= 2, i++) {
+      towers[i] = new Tower(size);
+    }
+    return towers;
+  }
+
   void WriteCSV(object[][] timeResults, string fileName) {
     Directory.CreateDirectory("./csv");
     using (StreamWriter writer = new StreamWriter("./csv/" + fileName + ".csv")) {
@@ -165,6 +214,7 @@ class DivideConquerMain {
     bool debug = false;
     int[][] arrays;
     SearchInt[] searchArrays;
+    Tower[] towerArrays;
     Sorter sorter;
     int size = 1;
     main.PrintTitle();
@@ -199,7 +249,7 @@ class DivideConquerMain {
         if (output) main.WriteCSV(timeResults, "QuickSort");
         return;
       case Algorithm.BinarySearch:
-        if (!debug) searchArrays = main.GenerateSearchArrays(size, NUMBER_ARRAYS);
+        if (!debug) searchArrays = main.GenerateSearchArrays(size, NUMBER_SEARCH);
         else {
           searchArrays = main.GenerateSearchArrays(size, 1);
           Console.WriteLine("Array generated: [" + string.Join(", ", searchArrays[0].List) + "]\n");
@@ -212,13 +262,14 @@ class DivideConquerMain {
         if (output) main.WriteCSV(timeResults, "BinarySearch");
         return;
       case Algorithm.HanoiTower:
-        // HanoiTower HanoiTower = new HanoiTower();
-        // Solver solver = new Solver(HanoiTower);
-        // object[][] timeResults = main.Benchmark(solver, arrays);
-        // main.PrintResults(timeResults);
-        // if (output) main.WriteCSV(timeResults, "HanoiTower");
-        // return;
-        throw new NotImplementedException();
+        if (!debug) towerArrays = main.GenerateTowerArrays(size, NUMBER_TOWERS);
+        else towerArrays = main.GenerateTowerArrays(size, 1);
+        HanoiTower HanoiTower = new HanoiTower();
+        TowerSolver solver = new TowerSolver(HanoiTower);
+        timeResults = main.BenchTower(solver, towerArrays, debug);
+        main.PrintResults(timeResults);
+        if (output) main.WriteCSV(timeResults, "HanoiTower");
+        return;
     }
   }
 

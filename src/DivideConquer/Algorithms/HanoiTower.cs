@@ -14,8 +14,8 @@ namespace DivideConquer.Algorithms {
     /// </summary>
     public HanoiTower() {
       this._subproblems = "2";
-      this._sizeSubproblems = "2";
-      this._additionalComplexity = "n";
+      this._sizeSubproblems = "n - 1";
+      this._additionalComplexity = "1";
     }
 
     /// <summary>

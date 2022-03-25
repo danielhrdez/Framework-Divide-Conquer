@@ -26,5 +26,10 @@ namespace DivideConquer.Types {
       get { return this._to; }
       set { this._to = value; }
     }
+
+    public override string ToString()
+    {
+      return "From: " + this._from + " To: " + this._to;
+    }
   }
 }
