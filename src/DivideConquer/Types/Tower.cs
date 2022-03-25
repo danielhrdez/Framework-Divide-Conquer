@@ -1,47 +1,49 @@
-// /**
-//  * Universidad de La Laguna
-//  * Grado en Ingeniería Informática
-//  * Diseño y Análisis de Algoritmos
-//  * @author Daniel Hernandez de Leon
-//  * @class Towers
-//  * @brief Clase para representar problemas de torres de Hanoi
-//  */
+/// Universidad de La Laguna
+/// Grado en Ingeniería Informática
+/// Diseño y Análisis de Algoritmos
+/// <author name="Daniel Hernandez de Leon"></author>
+/// <class name="Tower"> Clase para representar problemas de torres de Hanoi </class>
  
-// using System;
-// using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
 
-// namespace DivideConquer.Types {
-//   class Tower<Type> {
-//     private int _disks;
-//     private Type[] _source;
-//     private Type[] _destination;
-//     private Type[] _auxiliary;
+namespace DivideConquer.Types {
+  class Tower {
+    private int _disks;
+    private string _source;
+    private string _auxiliary;
+    private string _destination;
 
-//     public Tower(Type disks, Type[] source, Type[] destination, Type[] auxiliary) {
-//       this._disks = disks;
-//       this._source = source;
-//       this._destination = destination;
-//       this._auxiliary = auxiliary;
-//     }
+    public Tower(
+        int disks,
+        string source = "source",
+        string auxiliary = "auxiliary",
+        string destination = "destination"
+    ) {
+      this._disks = disks;
+      this._source = source;
+      this._auxiliary = auxiliary;
+      this._destination = destination;
+    }
     
-//     public Type Disks {
-//       get { return this._disks; }
-//       set { this._disks = value; }
-//     }
+    public int Disks {
+      get { return this._disks; }
+      set { this._disks = value; }
+    }
 
-//     public Type[] Source {
-//       get { return this._source; }
-//       set { this._source = value; }
-//     }
+    public string Source {
+      get { return this._source; }
+      set { this._source = value; }
+    }
 
-//     public Type[] Destination {
-//       get { return this._destination; }
-//       set { this._destination = value; }
-//     }
+    public string Auxiliary {
+      get { return this._auxiliary; }
+      set { this._auxiliary = value; }
+    }
 
-//     public Type[] Auxiliary {
-//       get { return this._auxiliary; }
-//       set { this._auxiliary = value; }
-//     }
-//   }
-// }
+    public string Destination {
+      get { return this._destination; }
+      set { this._destination = value; }
+    }
+  }
+}

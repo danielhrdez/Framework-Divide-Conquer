@@ -1,11 +1,8 @@
-/**
- * Universidad de La Laguna
- * Grado en Ingeniería Informática
- * Diseño y Análisis de Algoritmos
- * @author Daniel Hernandez de Leon
- * @class DivideConquer
- * @brief Implementación de algoritmos de divide y vencerás genéricos
- */
+/// Universidad de La Laguna
+/// Grado en Ingeniería Informática
+/// Diseño y Análisis de Algoritmos
+/// <author name="Daniel Hernandez de Leon"></author>
+/// <class name="DivideConquer"> Implementación de algoritmos de divide y vencerás genéricos </class>
 
 using System;
 

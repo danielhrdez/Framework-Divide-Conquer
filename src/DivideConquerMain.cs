@@ -1,11 +1,8 @@
-/**
- * Universidad de La Laguna
- * Grado en Ingeniería Informática
- * Diseño y Análisis de Algoritmos
- * @author Daniel Hernandez de Leon
- * @class DivideConquerMain
- * @brief Programa principal para el ejercicio de Divide y Vencerás
- */
+/// Universidad de La Laguna
+/// Grado en Ingeniería Informática
+/// Diseño y Análisis de Algoritmos
+/// <author name="Daniel Hernandez de Leon"></author>
+/// <class name="DivideConquerMain"> Programa principal para el ejercicio de Divide y Vencerás </class>
 
 using Sorter = DivideConquer.Solver<int[], int[]>;
 using Searcher = DivideConquer.Solver<DivideConquer.Types.Search<int>, int>;
@@ -21,7 +18,7 @@ using System.IO;
 using System.Linq;
 
 class DivideConquerMain {
-  const int NUMBER_ARRAYS = 28;
+  const int NUMBER_ARRAYS = 20;
   const int MAX_VALUE = 100;
   const int MIN_SIZE = 1;
   const string TITLE = @"
@@ -48,14 +45,16 @@ class DivideConquerMain {
   /// <param name="algorithm">The algorithms to benchmark.</param>
   /// <param name="arrays">The arrays to benchmark.</param>
   /// <returns> The results of the benchmark.</returns>
-  object[][] BenchSort(Sorter algorithm, int[][] arrays) {
+  object[][] BenchSort(Sorter algorithm, int[][] arrays, bool debug) {
+    int[] result;
     object[][] timeResults = new object[arrays.Length][];
     Stopwatch sw = new Stopwatch();
     for (int i = 0; i < arrays.Length; i++) {
       sw.Reset();
       sw.Start();
-      algorithm.Solve(arrays[i]);
+      result = algorithm.Solve(arrays[i]);
       sw.Stop();
+      if (debug) Console.WriteLine("Sorted Array: [" + string.Join(", ", result) + "]\n");
       timeResults[i] = new object[4] {
         algorithm.AlgorithmName(), 
         sw.ElapsedMilliseconds, 
@@ -72,14 +71,16 @@ class DivideConquerMain {
   /// <param name="algorithm">The algorithms to benchmark.</param>
   /// <param name="arrays">The arrays to benchmark.</param>
   /// <returns> The results of the benchmark.</returns>
-  object[][] BenchSearch(Searcher algorithm, SearchInt[] arrays) {
+  object[][] BenchSearch(Searcher algorithm, SearchInt[] arrays, bool debug) {
+    int result;
     object[][] timeResults = new object[arrays.Length][];
     Stopwatch sw = new Stopwatch();
     for (int i = 0; i < arrays.Length; i++) {
       sw.Reset();
       sw.Start();
-      algorithm.Solve(arrays[i]);
+      result = algorithm.Solve(arrays[i]);
       sw.Stop();
+      if (debug) Console.WriteLine("Found value at: " + result + "\n");
       timeResults[i] = new object[4] {
         algorithm.AlgorithmName(), 
         sw.ElapsedMilliseconds, 
@@ -182,7 +183,7 @@ class DivideConquerMain {
           Console.WriteLine("Array generated: [" + string.Join(", ", arrays[0]) + "]\n");
         }
         sorter = new Sorter(new MergeSort());
-        object[][] timeResults = main.BenchSort(sorter, arrays);
+        object[][] timeResults = main.BenchSort(sorter, arrays, debug);
         main.PrintResults(timeResults);
         if (output) main.WriteCSV(timeResults, "MergeSort");
         return;
@@ -193,7 +194,7 @@ class DivideConquerMain {
           Console.WriteLine("Array generated: [" + string.Join(", ", arrays[0]) + "]\n");
         }
         sorter = new Sorter(new QuickSort());
-        timeResults = main.BenchSort(sorter, arrays);
+        timeResults = main.BenchSort(sorter, arrays, debug);
         main.PrintResults(timeResults);
         if (output) main.WriteCSV(timeResults, "QuickSort");
         return;
@@ -201,11 +202,12 @@ class DivideConquerMain {
         if (!debug) searchArrays = main.GenerateSearchArrays(size, NUMBER_ARRAYS);
         else {
           searchArrays = main.GenerateSearchArrays(size, 1);
-          Console.WriteLine("Array generated: [" + string.Join(", ", searchArrays[0]) + "]\n");
+          Console.WriteLine("Array generated: [" + string.Join(", ", searchArrays[0].List) + "]\n");
+          Console.WriteLine("Target: " + searchArrays[0].Target + "\n");
         }
         BinarySearch binarySearch = new BinarySearch();
         Searcher search = new Searcher(binarySearch);
-        timeResults = main.BenchSearch(search, searchArrays);
+        timeResults = main.BenchSearch(search, searchArrays, debug);
         main.PrintResults(timeResults);
         if (output) main.WriteCSV(timeResults, "BinarySearch");
         return;

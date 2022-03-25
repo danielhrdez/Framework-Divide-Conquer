@@ -1,11 +1,8 @@
-/**
- * Universidad de La Laguna
- * Grado en Ingeniería Informática
- * Diseño y Análisis de Algoritmos
- * @author Daniel Hernandez de Leon
- * @class BinarySearch
- * @brief Implementación de la búsqueda binaria
- */
+/// Universidad de La Laguna
+/// Grado en Ingeniería Informática
+/// Diseño y Análisis de Algoritmos
+/// <author name="Daniel Hernandez de Leon"></author>
+/// <class name="BinarySearch"> Implementación de la búsqueda binaria </class>
 
 using System;
 using System.Collections.Generic;

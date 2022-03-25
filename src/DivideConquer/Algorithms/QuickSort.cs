@@ -1,11 +1,8 @@
-/**
- * Universidad de La Laguna
- * Grado en Ingeniería Informática
- * Diseño y Análisis de Algoritmos
- * @author Daniel Hernandez de Leon
- * @class QuickSort
- * @brief Implementación de la ordenación por selección
- */
+/// Universidad de La Laguna
+/// Grado en Ingeniería Informática
+/// Diseño y Análisis de Algoritmos
+/// <author name="Daniel Hernandez de Leon"></author>
+/// <class name="QuickSort"> Implementación de la ordenación por selección </class>
 
 using System;
 using System.Collections.Generic;
@@ -65,6 +62,7 @@ namespace DivideConquer.Algorithms {
       List<Type> combined = new List<Type>();
       combined.AddRange(subarrays[0]);
       combined.AddRange(subarrays[1]);
+      combined.AddRange(subarrays[2]);
       return combined.ToArray();
     }
   }

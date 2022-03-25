@@ -1,11 +1,8 @@
-/**
- * Universidad de La Laguna
- * Grado en Ingeniería Informática
- * Diseño y Análisis de Algoritmos
- * @author Daniel Hernandez de Leon
- * @class Search
- * @brief Clase generica para los problemas de busqueda
- */
+/// Universidad de La Laguna
+/// Grado en Ingeniería Informática
+/// Diseño y Análisis de Algoritmos
+/// <author name="Daniel Hernandez de Leon"></author>
+/// <class name="Search"> Clase generica para los problemas de busqueda </class>
  
 using System;
 using System.Collections.Generic;
