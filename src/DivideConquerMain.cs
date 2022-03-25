@@ -112,10 +112,12 @@ class DivideConquerMain {
       sw.Stop();
       if (debug) {
         int index = 0;
+        string result = "";
         foreach (Step step in steps) {
-          Console.WriteLine("Step " + index + ": \n  " + step.ToString() + "\n");
+          result += "Step " + index + ": \n  " + step.ToString() + "\n";
           index++;
         }
+        Console.WriteLine(result);
       }
       timeResults[i] = new object[4] {
         algorithm.AlgorithmName(), 
