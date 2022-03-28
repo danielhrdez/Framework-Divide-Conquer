@@ -44,6 +44,7 @@ namespace Program {
     public static void Mergesort(int size, bool debug, bool output) {
       Generator generator = new Generator();
       Benchmark benchmark = new Benchmark();
+      BenchmarkThreading benchmarkThreading = new BenchmarkThreading();
       Printer printer = new Printer();
       Writer writer = new Writer();
       int[][] arrays;
@@ -53,6 +54,8 @@ namespace Program {
       else arrays = generator.GenerateArrays(size, 1, Constants.MAX_VALUE);
       timeResults = benchmark.BenchSort(Constants.ALGORITHM.MergeSort, arrays, debug);
       printer.PrintResults(timeResults);
+      // timeResults = benchmarkThreading.BenchSort(Constants.ALGORITHM.MergeSort, arrays, debug);
+      // printer.PrintResults(timeResults);
       if (output) writer.WriteCSV(timeResults, Constants.ALGORITHM.MergeSort.ToString());
     }
 
@@ -65,6 +68,7 @@ namespace Program {
     public static void Quicksort(int size, bool debug, bool output) {
       Generator generator = new Generator();
       Benchmark benchmark = new Benchmark();
+      BenchmarkThreading benchmarkThreading = new BenchmarkThreading();
       Printer printer = new Printer();
       Writer writer = new Writer();
       int[][] arrays;
@@ -74,6 +78,8 @@ namespace Program {
       else arrays = generator.GenerateArrays(size, 1, Constants.MAX_VALUE);
       timeResults = benchmark.BenchSort(Constants.ALGORITHM.QuickSort, arrays, debug);
       printer.PrintResults(timeResults);
+      // timeResults = benchmarkThreading.BenchSort(Constants.ALGORITHM.QuickSort, arrays, debug);
+      // printer.PrintResults(timeResults);
       if (output) writer.WriteCSV(timeResults, Constants.ALGORITHM.QuickSort.ToString());
     }
 
@@ -86,6 +92,7 @@ namespace Program {
     public static void BinarySearch(int size, bool debug, bool output) {
       Generator generator = new Generator();
       Benchmark benchmark = new Benchmark();
+      BenchmarkThreading benchmarkThreading = new BenchmarkThreading();
       Printer printer = new Printer();
       Writer writer = new Writer();
       Search<int>[] searchArrays;
@@ -95,6 +102,8 @@ namespace Program {
       else searchArrays = generator.GenerateSearchArrays(size, 1);
       timeResults = benchmark.BenchSearch(Constants.ALGORITHM.BinarySearch, searchArrays, debug);
       printer.PrintResults(timeResults);
+      // timeResults = benchmarkThreading.BenchSearch(Constants.ALGORITHM.BinarySearch, searchArrays, debug);
+      // printer.PrintResults(timeResults);
       if (output) writer.WriteCSV(timeResults, Constants.ALGORITHM.BinarySearch.ToString());
     }
 
@@ -107,6 +116,7 @@ namespace Program {
     public static void HanoiTower(int size, bool debug, bool output) {
       Generator generator = new Generator();
       Benchmark benchmark = new Benchmark();
+      BenchmarkThreading benchmarkThreading = new BenchmarkThreading();
       Printer printer = new Printer();
       Writer writer = new Writer();
       Tower[] towerArrays;
@@ -116,6 +126,8 @@ namespace Program {
       else towerArrays = generator.GenerateTowerArrays(size, 1);
       timeResults = benchmark.BenchTower(Constants.ALGORITHM.HanoiTower, towerArrays, debug);
       printer.PrintResults(timeResults);
+      // timeResults = benchmarkThreading.BenchTower(Constants.ALGORITHM.HanoiTower, towerArrays, debug);
+      // printer.PrintResults(timeResults);
       if (output) writer.WriteCSV(timeResults, Constants.ALGORITHM.HanoiTower.ToString());
     }
 

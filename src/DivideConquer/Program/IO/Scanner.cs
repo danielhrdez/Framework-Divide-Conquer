@@ -13,7 +13,7 @@ namespace IO {
     /// </summary>
     /// <returns>The size chosen by the user</returns>
     public int ChooseSize() {
-      string read;
+      string? read;
       int size;
       string message = "Choose the size of the arrays: ";
       Console.Write(message);

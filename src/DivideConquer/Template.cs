@@ -6,9 +6,9 @@
  
 namespace DivideConquer {
   abstract class Template<Problem, Solution> {
-    protected string _subproblems;
-    protected string _sizeSubproblems;
-    protected string _additionalComplexity;
+    protected string _subproblems = default!;
+    protected string _sizeSubproblems = default!;
+    protected string _additionalComplexity = default!;
 
     /// <summary>
     /// Determines if a problem is solvable.
