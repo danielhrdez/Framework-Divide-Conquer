@@ -4,7 +4,10 @@
 /// <author name="Daniel Hernandez de Leon"></author>
 /// <class name="Generator"> Programa para los generadores de instancias de Divide y Vencerás </class>
 
-namespace MainProgram {
+using DivideConquer.Types;
+using RandomGenerators;
+
+namespace Program {
   class Generator {
     /// <summary>
     ///   Generate random arrays.
@@ -28,8 +31,8 @@ namespace MainProgram {
     /// </summary>
     /// <param name="size">The size of the arrays.</param>
     /// <returns>The search arrays.</returns>
-    public SearchInt[] GenerateSearchArrays(int minSize, int maxSize) {
-      SearchInt[] arrays = new SearchInt[maxSize];
+    public Search<int>[] GenerateSearchArrays(int minSize, int maxSize) {
+      Search<int>[] arrays = new Search<int>[maxSize];
       int[] intArray;
       for (int size = minSize, i = 0; i < maxSize; size *= 2, i++) {
         intArray = new int[size];
@@ -37,7 +40,7 @@ namespace MainProgram {
           intArray[j] = j;
         }
         int randomPosition = new Random().Next(size);
-        arrays[i] = new SearchInt(intArray, intArray[randomPosition]);
+        arrays[i] = new Search<int>(intArray, intArray[randomPosition]);
       }
       return arrays;
     }

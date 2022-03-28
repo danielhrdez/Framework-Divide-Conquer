@@ -4,7 +4,8 @@
 /// <author name="Daniel Hernandez de Leon"></author>
 /// <class name="Printer"> Programa para los prints de Divide y Vencerás </class>
 
-using MainProgram;
+using DivideConquer.Types;
+using Program;
 
 namespace IO {
   class Printer {
@@ -49,7 +50,7 @@ namespace IO {
     ///   Print the menu
     /// </summary>
     /// <returns>The algorithm chosen by the user</returns>
-    public Constants.Algorithm PrintMenu() {
+    public Constants.ALGORITHM PrintMenu() {
       Console.OutputEncoding = System.Text.Encoding.UTF8;
       Console.WriteLine("Choose Algorithm:");
       Console.ForegroundColor = ConsoleColor.Red;
@@ -96,6 +97,27 @@ namespace IO {
             return (Constants.Algorithm) current;
         }
       }
+    }
+
+    public void PrintSearch(Search<int> array, int result) {
+      Console.WriteLine("Array generated: [" + string.Join(", ", array.List) + "]\n");
+      Console.WriteLine("Target: " + array.Target + "\n");
+      Console.WriteLine("Found value at: " + result + "\n");
+    }
+
+    public void PrintSort(int[] array, int[] result) {
+      Console.WriteLine("Array generated: [" + string.Join(", ", array) + "]\n");
+      Console.WriteLine("Sorted Array: [" + string.Join(", ", result) + "]\n");
+    }
+
+    public void PrintTower(Step[] steps) {
+      int index = 0;
+      string result = "";
+      foreach (Step step in steps) {
+        result += "Step " + index + ": \n  " + step.ToString() + "\n";
+        index++;
+      }
+      Console.WriteLine(result);
     }
   }
 }

@@ -21,8 +21,8 @@
 // using System.Linq;
 using IO;
 
-namespace MainProgram {
-  class Main {
+namespace Program {
+  class MainProgram {
     /// <summary>
     ///   Main method.
     ///   Generate random arrays, 
@@ -58,11 +58,8 @@ namespace MainProgram {
       Printer printer = new Printer();
       Writer writer = new Writer();
 
-      if (!debug) arrays = generator.GenerateArrays(size, Constants.NUMBER_ARRAYS, Constants.MAX_VALUE);
-      else {
-        arrays = generator.GenerateArrays(size, 1, Constants.MAX_VALUE);
-        Console.WriteLine("Array generated: [" + string.Join(", ", arrays[0]) + "]\n");
-      }
+      if (!debug) arrays = generator.GenerateArrays(size, Constants.NUMBER_ARRAYS, Constants.MAX_VALUE, debug);
+      else arrays = generator.GenerateArrays(size, 1, Constants.MAX_VALUE, debug);
       object[][] timeResults = benchmark.BenchSort(Constants.ALGORITHM.MergeSort, arrays, debug);
       printer.PrintResults(timeResults);
       if (output) writer.WriteCSV(timeResults, Constants.ALGORITHM.MergeSort.ToString());
@@ -75,10 +72,7 @@ namespace MainProgram {
       Writer writer = new Writer();
 
       if (!debug) arrays = generator.GenerateArrays(size, NUMBER_ARRAYS, MAX_VALUE);
-      else {
-        arrays = main.GenerateArrays(size, 1, MAX_VALUE);
-        Console.WriteLine("Array generated: [" + string.Join(", ", arrays[0]) + "]\n");
-      }
+      else arrays = main.GenerateArrays(size, 1, MAX_VALUE);
       timeResults = benchmark.BenchSort(Constants.ALGORITHM.QuickSort, arrays, debug);
       printer.PrintResults(timeResults);
       if (output) writer.WriteCSV(timeResults, Constants.ALGORITHM.QuickSort.ToString());
@@ -91,14 +85,8 @@ namespace MainProgram {
       Writer writer = new Writer();
 
       if (!debug) searchArrays = generator.GenerateSearchArrays(size, NUMBER_SEARCH);
-      else {
-        searchArrays = main.GenerateSearchArrays(size, 1);
-        Console.WriteLine("Array generated: [" + string.Join(", ", searchArrays[0].List) + "]\n");
-        Console.WriteLine("Target: " + searchArrays[0].Target + "\n");
-      }
-      BinarySearch binarySearch = new BinarySearch();
-      Searcher search = new Searcher(binarySearch);
-      timeResults = benchmark.BenchSearch(search, searchArrays, debug);
+      else searchArrays = generator.GenerateSearchArrays(size, 1);
+      timeResults = benchmark.BenchSearch(Constants.ALGORITHM.BinarySearch, searchArrays, debug);
       printer.PrintResults(timeResults);
       if (output) writer.WriteCSV(timeResults, Constants.ALGORITHM.BinarySearch.ToString());
     }
@@ -110,10 +98,8 @@ namespace MainProgram {
       Writer writer = new Writer();
 
       if (!debug) towerArrays = generator.GenerateTowerArrays(size, NUMBER_TOWERS);
-      else towerArrays = benchmark.GenerateTowerArrays(size, 1);
-      HanoiTower HanoiTower = new HanoiTower();
-      TowerSolver solver = new TowerSolver(HanoiTower);
-      timeResults = main.BenchTower(solver, towerArrays, debug);
+      else towerArrays = generator.GenerateTowerArrays(size, 1);
+      timeResults = benchmark.BenchTower(Constants.ALGORITHM.HanoiTower, towerArrays, debug);
       printer.PrintResults(timeResults);
       if (output) writer.WriteCSV(timeResults, Constants.ALGORITHM.HanoiTower.ToString());
     }
