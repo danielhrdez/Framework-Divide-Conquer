@@ -8,6 +8,7 @@ using IO;
 using DivideConquer.Algorithms;
 using DivideConquer.Types;
 using DivideConquer;
+using System.Diagnostics;
 
 namespace Program {
   class Benchmark {
@@ -20,13 +21,10 @@ namespace Program {
     public object[][] BenchSort(Constants.ALGORITHM typeAlgorithm, int[][] arrays, bool debug) {
       int[] result;
       object[][] timeResults = new object[arrays.Length][];
-      Solver<int, int> algorithm;
+      Solver<int[], int[]> algorithm = new Solver<int[], int[]>(new MergeSort<int>());
       switch (typeAlgorithm) {
-        case Constants.ALGORITHM.MergeSort:
-          algorithm = new Solver<int, int>(new MergeSort<int>());
-          break;
         case Constants.ALGORITHM.QuickSort:
-          algorithm = new Solver<int, int>(new QuickSort<int>());
+          algorithm = new Solver<int[], int[]>(new QuickSort<int>());
           break;
       }
       Stopwatch sw = new Stopwatch();
@@ -58,12 +56,7 @@ namespace Program {
     public object[][] BenchSearch(Constants.ALGORITHM typeAlgorithm, Search<int>[] arrays, bool debug) {
       int result;
       object[][] timeResults = new object[arrays.Length][];
-      Solver<Search<int>, int> algorithm;
-      switch (typeAlgorithm) {
-        case Constants.ALGORITHM.BinarySearch:
-          algorithm = new Solver<Search<int>, int>(new BinarySearch<Search<int>, int>());
-          break;
-      }
+      Solver<Search<int>, int> algorithm = new Solver<Search<int>, int>(new BinarySearch<Search<int>, int>());
       Stopwatch sw = new Stopwatch();
       for (int i = 0; i < arrays.Length; i++) {
         sw.Reset();
@@ -93,12 +86,7 @@ namespace Program {
     public object[][] BenchTower(Constants.ALGORITHM typeAlgorithm, Tower[] arrays, bool debug) {
       object[][] timeResults = new object[arrays.Length][];
       Stopwatch sw = new Stopwatch();
-      Solver<Tower, Step[]> algorithm;
-      switch (typeAlgorithm) {
-        case Constants.ALGORITHM.HanoiTower:
-          algorithm = new Solver<Tower, Step[]>(new HanoiTower());
-          break;
-      }
+      Solver<Tower, Step[]> algorithm = new Solver<Tower, Step[]>(new HanoiTower());
       for (int i = 0; i < arrays.Length; i++) {
         sw.Reset();
         sw.Start();

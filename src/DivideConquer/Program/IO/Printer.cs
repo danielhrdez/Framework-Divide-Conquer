@@ -6,6 +6,7 @@
 
 using DivideConquer.Types;
 using Program;
+using System;
 
 namespace IO {
   class Printer {
@@ -13,7 +14,7 @@ namespace IO {
     ///   Print the results of the benchmark.
     /// </summary>
     /// <param name="timeResults">The results of the benchmark.</param>
-    void PrintResults(object[][] timeResults) {
+    public void PrintResults(object[][] timeResults) {
       Console.WriteLine("{0}", timeResults[0][0]);
       for (int i = 0; i < timeResults.Length; i++) {
         Console.Write("  Time: {0}", timeResults[i][1]);
@@ -94,7 +95,7 @@ namespace IO {
             break;
           case ConsoleKey.Enter:
             Console.SetCursorPosition(0, Console.CursorTop + 5 - current);
-            return (Constants.Algorithm) current;
+            return (Constants.ALGORITHM) current;
         }
       }
     }
@@ -112,12 +113,10 @@ namespace IO {
 
     public void PrintTower(Step[] steps) {
       int index = 0;
-      string result = "";
       foreach (Step step in steps) {
-        result += "Step " + index + ": \n  " + step.ToString() + "\n";
+        Console.WriteLine("Step " + index + ": \n  " + step.ToString() + "\n");
         index++;
       }
-      Console.WriteLine(result);
     }
   }
 }

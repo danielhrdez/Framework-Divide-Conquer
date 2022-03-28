@@ -4,6 +4,8 @@
 /// <author name="Daniel Hernandez de Leon"></author>
 /// <class name="Writer"> Programa para la escritura de fichero de Divide y Vencerás </class>
 
+using System.IO;
+
 namespace IO {
   class Writer {
     /// <summary>

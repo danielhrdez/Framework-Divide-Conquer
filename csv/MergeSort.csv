@@ -1,4 +1,4 @@
-MergeSort<System.Int32[], System.Int32[]>: Milliseconds,Size
+MergeSort<Int32[], Int32[]>: Milliseconds,Size
 0,1
 0,2
 1,4
@@ -14,6 +14,6 @@ MergeSort<System.Int32[], System.Int32[]>: Milliseconds,Size
 1,4096
 2,8192
 7,16384
-13,32768
-32,65536
-63,131072
+11,32768
+25,65536
+50,131072
