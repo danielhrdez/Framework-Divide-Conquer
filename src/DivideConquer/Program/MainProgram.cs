@@ -35,6 +35,12 @@ namespace Program {
       SwitchAlgorithm(option, size, debug, output);
     }
 
+    /// <summary>
+    ///   Executes the Merge Sort algorithm.
+    /// </summary>
+    /// <param name="size">The size of the array.</param>
+    /// <param name="debug">If true, the user can choose the size of the array.</param>
+    /// <param name="output">If true, the results will be printed on csv file.</param>
     public static void Mergesort(int size, bool debug, bool output) {
       Generator generator = new Generator();
       Benchmark benchmark = new Benchmark();
@@ -50,6 +56,12 @@ namespace Program {
       if (output) writer.WriteCSV(timeResults, Constants.ALGORITHM.MergeSort.ToString());
     }
 
+    /// <summary>
+    ///   Executes the Quick Sort algorithm.
+    /// </summary>
+    /// <param name="size">The size of the array.</param>
+    /// <param name="debug">If true, the user can choose the size of the array.</param>
+    /// <param name="output">If true, the results will be printed on csv file.</param>
     public static void Quicksort(int size, bool debug, bool output) {
       Generator generator = new Generator();
       Benchmark benchmark = new Benchmark();
@@ -65,6 +77,12 @@ namespace Program {
       if (output) writer.WriteCSV(timeResults, Constants.ALGORITHM.QuickSort.ToString());
     }
 
+    /// <summary>
+    ///   Executes the Binary Search algorithm.
+    /// </summary>
+    /// <param name="size">The size of the array.</param>
+    /// <param name="debug">If true, the user can choose the size of the array.</param>
+    /// <param name="output">If true, the results will be printed on csv file.</param>
     public static void BinarySearch(int size, bool debug, bool output) {
       Generator generator = new Generator();
       Benchmark benchmark = new Benchmark();
@@ -80,6 +98,12 @@ namespace Program {
       if (output) writer.WriteCSV(timeResults, Constants.ALGORITHM.BinarySearch.ToString());
     }
 
+    /// <summary>
+    ///   Executes the Hanoi Tower algorithm.
+    /// </summary>
+    /// <param name="size">The size of the array.</param>
+    /// <param name="debug">If true, the user can choose the size of the array.</param>
+    /// <param name="output">If true, the results will be printed on csv file.</param>
     public static void HanoiTower(int size, bool debug, bool output) {
       Generator generator = new Generator();
       Benchmark benchmark = new Benchmark();
@@ -95,6 +119,13 @@ namespace Program {
       if (output) writer.WriteCSV(timeResults, Constants.ALGORITHM.HanoiTower.ToString());
     }
 
+    /// <summary>
+    ///   Executes the right algorithm.
+    /// </summary>
+    /// <param name="option">The option of the algorithm.</param>
+    /// <param name="size">The size of the array.</param>
+    /// <param name="debug">If true, the user can choose the size of the array.</param>
+    /// <param name="output">If true, the results will be printed on csv file.</param>
     public static void SwitchAlgorithm(Constants.ALGORITHM option, int size, bool debug, bool output) {
       switch (option) {
         case Constants.ALGORITHM.MergeSort:

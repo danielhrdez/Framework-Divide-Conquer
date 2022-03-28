@@ -100,17 +100,31 @@ namespace IO {
       }
     }
 
+    /// <summary>
+    ///   Print the results of the search.
+    /// </summary>
+    /// <param name="array">The array to search.</param>
+    /// <param name="result">The result of the search.</param>
     public void PrintSearch(Search<int> array, int result) {
       Console.WriteLine("Array generated: [" + string.Join(", ", array.List) + "]\n");
       Console.WriteLine("Target: " + array.Target + "\n");
       Console.WriteLine("Found value at: " + result + "\n");
     }
 
+    /// <summary>
+    ///   Print the results of the sort.
+    /// </summary>
+    /// <param name="array">The array to sort.</param>
+    /// <param name="result">The result of the sort.</param>
     public void PrintSort(int[] array, int[] result) {
       Console.WriteLine("Array generated: [" + string.Join(", ", array) + "]\n");
       Console.WriteLine("Sorted Array: [" + string.Join(", ", result) + "]\n");
     }
 
+    /// <summary>
+    ///   Print the results of the towers of hanoi.
+    /// </summary>
+    /// <param name="steps">The steps of the towers of hanoi.</param>
     public void PrintTower(Step[] steps) {
       int index = 0;
       foreach (Step step in steps) {

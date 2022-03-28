@@ -14,6 +14,13 @@ namespace DivideConquer.Types {
     private string _auxiliary;
     private string _destination;
 
+    /// <summary>
+    /// Constructor of the class
+    /// </summary>
+    /// <param name="disks">The number of disks</param>
+    /// <param name="source">The origin of the tower</param>
+    /// <param name="auxiliary">The auxiliary of the tower</param>
+    /// <param name="destination">The destination of the tower</param>
     public Tower(
         int disks,
         string source = "source",
@@ -26,21 +33,33 @@ namespace DivideConquer.Types {
       this._destination = destination;
     }
     
+    /// <summary>
+    /// Getter and Setter the number of disks
+    /// </summary>
     public int Disks {
       get { return this._disks; }
       set { this._disks = value; }
     }
 
+    /// <summary>
+    /// Getter and Setter the origin of the tower
+    /// </summary>
     public string Source {
       get { return this._source; }
       set { this._source = value; }
     }
 
+    /// <summary>
+    /// Getter and Setter the auxiliary of the tower
+    /// </summary>
     public string Auxiliary {
       get { return this._auxiliary; }
       set { this._auxiliary = value; }
     }
 
+    /// <summary>
+    /// Getter and Setter the destination of the tower
+    /// </summary>
     public string Destination {
       get { return this._destination; }
       set { this._destination = value; }

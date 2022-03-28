@@ -13,22 +13,37 @@ namespace DivideConquer.Types {
     private Type _target;
     private int _index;
 
+    /// <summary>
+    /// Constructor of the class
+    /// </summary>
+    /// <param name="list">The list to search</param>
+    /// <param name="target">The target to search</param>
+    /// <param name="index">The index of the target</param>
     public Search(Type[] list, Type target, int index = 0) {
       this._list = list;
       this._target = target;
       this._index = index;
     }
     
+    /// <summary>
+    /// Getter and Setter the index of the target
+    /// </summary>
     public Type[] List {
       get { return this._list; }
       set { this._list = value; }
     }
 
+    /// <summary>
+    /// Getter and Setter the target to search
+    /// </summary>
     public Type Target {
       get { return this._target; }
       set { this._target = value; }
     }
 
+    /// <summary>
+    /// Getter and Setter the index of the target
+    /// </summary>
     public int Index {
       get { return this._index; }
       set { this._index = value; }
