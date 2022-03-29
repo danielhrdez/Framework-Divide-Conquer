@@ -6,7 +6,6 @@
 
 using DivideConquer.Types;
 using RandomGenerators;
-using System;
 
 namespace Program {
   class Generator {

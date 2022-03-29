@@ -36,6 +36,7 @@ namespace Program {
         if (debug) {
           Printer printer = new Printer();
           printer.PrintSort(arrays[0], result);
+          printer.PrintRecursion(algorithm.MaximumLevel(), algorithm.NumberRecursiveCalls());
         }
         timeResults[i] = new object[4] {
           algorithm.AlgorithmName(), 
@@ -66,6 +67,7 @@ namespace Program {
         if (debug) {
           Printer printer = new Printer();
           printer.PrintSearch(arrays[0], result);
+          printer.PrintRecursion(algorithm.MaximumLevel(), algorithm.NumberRecursiveCalls());
         }
         timeResults[i] = new object[4] {
           algorithm.AlgorithmName(), 
@@ -95,6 +97,7 @@ namespace Program {
         if (debug) {
           Printer printer = new Printer();
           printer.PrintTower(steps);
+          printer.PrintRecursion(algorithm.MaximumLevel(), algorithm.NumberRecursiveCalls());
         }
         timeResults[i] = new object[4] {
           algorithm.AlgorithmName(), 

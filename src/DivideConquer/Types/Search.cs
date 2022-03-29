@@ -3,9 +3,6 @@
 /// Diseño y Análisis de Algoritmos
 /// <author name="Daniel Hernandez de Leon"></author>
 /// <class name="Search"> Clase generica para los problemas de busqueda </class>
- 
-using System;
-using System.Collections.Generic;
 
 namespace DivideConquer.Types {
   class Search<Type> where Type : IComparable {

@@ -4,8 +4,6 @@
 /// <author name="Daniel Hernandez de Leon"></author>
 /// <class name="Scanner"> Programa para el scaneo de teclado de Divide y Vencerás </class>
 
-using System;
-
 namespace IO {
   class Scanner {
     /// <summary>

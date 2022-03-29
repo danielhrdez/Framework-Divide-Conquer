@@ -4,9 +4,6 @@
 /// <author name="Daniel Hernandez de Leon"></author>
 /// <class name="QuickSort"> Implementación de la ordenación por selección </class>
 
-using System;
-using System.Collections.Generic;
-
 namespace DivideConquer.Algorithms {
   class QuickSort<Type> : Template<Type[], Type[]> where Type : IComparable {
     /// <summary>

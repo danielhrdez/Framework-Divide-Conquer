@@ -5,7 +5,6 @@
 /// <class name="DivideConquerMain"> Programa principal para el ejercicio de Divide y Vencerás </class>
 
 using IO;
-using System.Linq;
 using DivideConquer.Types;
 
 namespace Program {

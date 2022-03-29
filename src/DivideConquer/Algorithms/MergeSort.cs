@@ -4,9 +4,6 @@
 /// <author name="Daniel Hernandez de Leon"></author>
 /// <class name="MergeSort"> Implementación de la ordenación por mezcla </class>
 
-using System;
-using System.Collections.Generic;
-
 namespace DivideConquer.Algorithms {
   class MergeSort<Type> : Template<Type[], Type[]> where Type : IComparable {
     /// <summary>

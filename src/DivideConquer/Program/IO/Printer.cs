@@ -6,7 +6,6 @@
 
 using DivideConquer.Types;
 using Program;
-using System;
 
 namespace IO {
   class Printer {
@@ -131,6 +130,11 @@ namespace IO {
         Console.WriteLine("Step " + index + ": \n  " + step.ToString() + "\n");
         index++;
       }
+    }
+
+    public void PrintRecursion(int maxLevel, int calls) {
+      Console.WriteLine("Max Level: " + maxLevel);
+      Console.WriteLine("Recursion: " + calls + " calls" + "\n");
     }
   }
 }

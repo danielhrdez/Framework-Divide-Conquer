@@ -4,7 +4,6 @@
 /// <author name="Daniel Hernandez de Leon"></author>
 /// <class name="HanoiTower"> Clase para algoritmos de HanoiTower </class>
 
-using System;
 using DivideConquer.Types;
 
 namespace DivideConquer.Algorithms {

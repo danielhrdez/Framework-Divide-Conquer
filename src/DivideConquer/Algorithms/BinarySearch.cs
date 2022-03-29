@@ -4,8 +4,6 @@
 /// <author name="Daniel Hernandez de Leon"></author>
 /// <class name="BinarySearch"> Implementación de la búsqueda binaria </class>
 
-using System;
-using System.Collections.Generic;
 using DivideConquer.Types;
 
 namespace DivideConquer.Algorithms {

@@ -3,9 +3,6 @@
 /// Diseño y Análisis de Algoritmos
 /// <author name="Daniel Hernandez de Leon"></author>
 /// <class name="Tower"> Clase para representar problemas de torres de Hanoi </class>
- 
-using System;
-using System.Collections.Generic;
 
 namespace DivideConquer.Types {
   class Tower {

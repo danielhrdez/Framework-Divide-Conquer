@@ -4,9 +4,6 @@
 /// <author name="Daniel Hernandez de Leon"></author>
 /// <class name="DivideConquer"> Implementación de algoritmos de divide y vencerás genéricos </class>
 
-using System;
-using System.Threading;
-
 namespace DivideConquer {
   class SolverThreading<Problem, Solution> {
     private Template<Problem, Solution> _algorithm;
